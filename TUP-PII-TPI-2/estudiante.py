@@ -7,5 +7,5 @@ class Estudiante(Usuario):
         self._anio_inscripcion_carrera = anio_inscripcion_carrera
 
 
-    def matricular_en_curso(curso):  # curso:Curso
-        pass
+    """def matricular_en_curso(curso):  # curso:Curso
+        pass"""

@@ -1,44 +1,24 @@
 from profesor import *
+from estudiante import *
 
-alumnos = [
-
-    {"nombre": "ricardo",
-     "apellido": "biselli",
-     "email": "1@gmail.com",
-     "contraseña": "123123", },
-
-
-
-    {"nombre": "martin",
-     "apellido": "biselli",
-     "email": "soyunalumno2@gmail.com",
-     "contraseña": "789789", }
-]
-
-
-
-profesores = [
-#Profesor()
-
-    {"nombre": "mercedes",
-     "apellido": "valoni",
-     "email": "soyunprofesor@gmail.com",
-     "contraseña": "456456", }
+registro = [
+    Estudiante(53013, 2023, "Ricardo", "Biselli",
+               "ricardobiselli@gmail.com", "131313"),  # usuario pre-cargado
+    Profesor("full stack developer", 2010, "Mercedes", "Valoni",
+             "mercedes@gmail.com", "mercedes123"),  # usuario pre-cargado
 ]
 
 cursos = [
     {"Materia": "Ingles I",
-    "Carrera": "Tecnicatura Universitaria en Programación"},
+     "Carrera": "Tecnicatura Universitaria en Programación"},
     {"Materia": "Ingles II",
-    "Carrera": "Tecnicatura Universitaria en Programación"},
+     "Carrera": "Tecnicatura Universitaria en Programación"},
     {"Materia": "Laboratorio I",
-    "Carrera": "Tecnicatura Universitaria en Programación"},
+     "Carrera": "Tecnicatura Universitaria en Programación"},
     {"Materia": "Laboratorio II",
-    "Carrera": "Tecnicatura Universitaria en Programación"},
+     "Carrera": "Tecnicatura Universitaria en Programación"},
     {"Materia": "Programación I",
-    "Carrera": "Tecnicatura Universitaria en Programación"},
+     "Carrera": "Tecnicatura Universitaria en Programación"},
     {"Materia": "Programación II",
-    "Carrera": "Tecnicatura Universitaria en Programación"}
+     "Carrera": "Tecnicatura Universitaria en Programación"}
 ]
-
-

@@ -1,7 +1,7 @@
 import os
 from estudiante import *
+from profesor import *
 from datospersonales import *
-from operator import itemgetter
 
 
 def menu():
@@ -22,25 +22,41 @@ while respuesta != "salir":
 
     if opt.isnumeric():
         opt = int(opt)
-        if opt == 1:   
+        if opt == 1:
+            ###########################################################################################
             mail_ingresado = input("ingrese su email: ")
-            contrasenia_ingresada = input("Ingrese la contraseña: ")            
-            resultado = Usuario.validar_credenciales(alumnos, mail_ingresado, contrasenia_ingresada)
+            contrasenia_ingresada = input("Ingrese la contraseña: ")
+            email_encontrado = False
+            for objeto in registro:
+                # if objeto.validar_credenciales(mail_ingresado, contrasenia_ingresada):
+                # no funciona validar_credenciales() sin chequear que el objeto sea una instancia de estudiante o profesor
+                if isinstance(objeto, (Estudiante, Profesor)) and objeto.validar_credenciales(mail_ingresado, contrasenia_ingresada):
+                    email_encontrado = True
+                    print("Acceso concedido MENSAJE TEMPORAL")
+                    break
 
-            if resultado:
-                print("Acceso permitido")
-            else:
-                print("Acceso denegado")
+            if not email_encontrado:
+                print("Mail no registrado, debe darse de alta en alumnado")
+            ###########################################################################################
+
         elif opt == 2:
-                mail_ingresado = input("ingrese su email: ")
-                contrasenia_ingresada = input("Ingrese la contraseña: ")
-                resultado = Usuario.validar_credenciales(profesores, mail_ingresado, contrasenia_ingresada)
-           
+            mail_ingresado = input("ingrese su email: ")
+            contrasenia_ingresada = input("Ingrese la contraseña: ")
+            email_encontrado = False
+            for objeto in registro:
+                if isinstance(objeto, (Estudiante, Profesor)) and objeto.validar_credenciales(mail_ingresado, contrasenia_ingresada):
+                    email_encontrado = True
+                    print("Acceso concedido MENSAJE TEMPORAL")
+                    break
+
+            if not email_encontrado:
+                print("Mail no registrado, debe darse de alta en alumnado")
+
         elif opt == 3:
-            cursos_ordenados = sorted(cursos, key=itemgetter("Materia"))  
-            for cursos in cursos_ordenados: 
-                print (cursos) 
-               
+            """cursos_ordenados = sorted(cursos, key=itemgetter("Materia"))
+            for cursos in cursos_ordenados:
+                print(cursos)"""
+
         elif opt == 4:
             os.system("clear")  # cambiar a cls para windows
             print("Saliendo del programa.")
