@@ -5,15 +5,17 @@ from datospersonales import *
 
 
 def menu():
-    print("|--------------------------------------|")
+    print("----------------------------------------")
     print("|1 - Ingresar cómo alumno              |")
     print("|2 - Ingresar cómo profesor            |")
     print("|3 - Ver cursos                        |")
     print("|4 - Salir                             |")
-    print("|--------------------------------------|\n")
+    print("----------------------------------------\n")
 
 
-print("Bienvenido!")
+print("---------------")
+print("| BIENVENIDO! |")
+print("---------------\n")
 respuesta = ""
 
 while respuesta != "salir":
@@ -36,12 +38,16 @@ while respuesta != "salir":
                     break
 
             if not email_encontrado:
-                print("Mail no registrado, debe darse de alta en alumnado")
+                os.system("clear")  # cambiar a cls para windows
+                print("------------------------------------------------------")
+                print("| Mail no registrado, debe darse de alta en alumnado |")
+                print("------------------------------------------------------\n")
+
             ###########################################################################################
 
         elif opt == 2:
-            mail_ingresado = input("ingrese su email: ")
-            contrasenia_ingresada = input("Ingrese la contraseña: ")
+            mail_ingresado = input("ingrese su email:   ")
+            contrasenia_ingresada = input("Ingrese la contraseña:   ")
             email_encontrado = False
             for objeto in registro:
                 if isinstance(objeto, (Estudiante, Profesor)) and objeto.validar_credenciales(mail_ingresado, contrasenia_ingresada):
@@ -50,8 +56,10 @@ while respuesta != "salir":
                     break
 
             if not email_encontrado:
-                print("Mail no registrado, debe darse de alta en alumnado")
-
+                os.system("clear")  # cambiar a cls para windows
+                print("------------------------------------------------------")
+                print("| Mail no registrado, debe darse de alta en alumnado |")
+                print("------------------------------------------------------\n")
         elif opt == 3:
             """cursos_ordenados = sorted(cursos, key=itemgetter("Materia"))
             for cursos in cursos_ordenados:
@@ -59,9 +67,15 @@ while respuesta != "salir":
 
         elif opt == 4:
             os.system("clear")  # cambiar a cls para windows
-            print("Saliendo del programa.")
+            print("--------------------")
+            print("| FIN DEL PROGRAMA |")
+            print("--------------------\n")
             respuesta = "salir"
         else:
-            print("No ha ingresado una opción válida")
+            print("----------------------------------------")
+            print("| No ha ingresado una opción válida... |")
+            print("----------------------------------------\n")
     else:
-        print("Ingrese una opción numérica")
+        print("----------------------------------")
+        print("| Ingrese una opción numérica... |")
+        print("----------------------------------\n")
