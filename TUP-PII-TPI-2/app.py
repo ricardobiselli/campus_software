@@ -25,7 +25,6 @@ while respuesta != "salir":
     if opt.isnumeric():
         opt = int(opt)
         if opt == 1:
-            ###########################################################################################
             mail_ingresado = input("ingrese su email: ")
             contrasenia_ingresada = input("Ingrese la contraseña: ")
             email_encontrado = False
@@ -35,15 +34,29 @@ while respuesta != "salir":
                 if isinstance(objeto, (Estudiante, Profesor)) and objeto.validar_credenciales(mail_ingresado, contrasenia_ingresada):
                     email_encontrado = True
                     print("Acceso concedido MENSAJE TEMPORAL")
-                    break
+                    
+                    print("----------------------------------------")
+                    print("|1 - Matricularse a un curso           |")
+                    print("|2 - Ver curso                         |")
+                    print("|3 - Volver al menú principal          |")
+                    print("----------------------------------------\n")       
+                    
+                    respuesta_submenu = ""
+                    while respuesta_submenu != "salir":
+                        opt_submenu_alumno = input("Ingrese la opción de menú: ")
+                        if opt_submenu_alumno.isnumeric():
+                            opt_submenu_alumno= int(opt_submenu_alumno)
+                        if opt_submenu_alumno == 1:
+                            #mostrar cursos
+                            pass
+                            
+                            
 
             if not email_encontrado:
                 os.system("clear")  # cambiar a cls para windows
                 print("------------------------------------------------------")
                 print("| Mail no registrado, debe darse de alta en alumnado |")
                 print("------------------------------------------------------\n")
-
-            ###########################################################################################
 
         elif opt == 2:
             mail_ingresado = input("ingrese su email:   ")
