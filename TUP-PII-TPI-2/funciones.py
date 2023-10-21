@@ -140,6 +140,7 @@ def mensaje_opcion_debe_ser_numerica():
 
 
 def mensaje_mail_no_registrado():
+    os.system("clear")  # cambiar a cls para Windows
     print("------------------------------------------------------")
     print("| Mail no registrado, debe darse de alta en alumnado |")
     print("------------------------------------------------------\n")
