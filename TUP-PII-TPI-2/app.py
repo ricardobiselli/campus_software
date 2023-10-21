@@ -10,26 +10,26 @@ mensaje_bienvenida()
 opt = 0
 while opt != 4: 
     menu_principal()  
-    opt = input("Ingrese la opción de menú: ")
+    opt = input("Ingrese la opción del menú: ")
     opt = int(opt) 
     if opt == 1:
-        prompt_datos_validar_credenciales()
+        objeto_activo = prompt_datos_validar_credenciales()
+        if objeto_activo:
+            menu_alumno()                  
+            opt_alumno = input("Ingrese la opción del menú: ")
+            opt_alumno = int(opt_alumno)
+            os.system("clear")
             
-        menu_alumno()                  
-        opt_alumno = input("Ingrese la opción de menú: ")
-        opt_alumno = int(opt_alumno)
-        os.system("clear")
-            
-        if opt_alumno == 1:
-            menu_listado_cursos()
-            prompt_matricular(prompt_datos_validar_credenciales())       
-                
-        elif opt_alumno == 2:
-            pass #imprimir_cursos_inscripto(curso, objeto) # ERROR???
-        elif opt_alumno == 3:
-            respuesta_submenu = "salir"  
-        else:  
-            mensaje_opcion_numero_invalido()
+            if opt_alumno == 1:
+                menu_listado_cursos()
+                prompt_matricular(objeto_activo)       
+                    
+            elif opt_alumno == 2:
+                pass #imprimir_cursos_inscripto(curso, objeto) # ERROR???
+            elif opt_alumno == 3:
+                respuesta_submenu = "salir"  
+            else:  
+                mensaje_opcion_numero_invalido()
                 #else:  
                 #    mensaje_opcion_debe_ser_numerica()     
         #if not email_encontrado:

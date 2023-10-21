@@ -8,5 +8,5 @@ class Estudiante(Usuario):
         self._anio_inscripcion_carrera = anio_inscripcion_carrera
 
 
-    def matricular_en_curso(self, objeto, curso_a_matricularse):
-        objeto._mis_cursos.append(curso_a_matricularse)
+    def matricular_en_curso(self, objeto_activo, curso_a_matricularse):
+        objeto_activo._mis_cursos.append(curso_a_matricularse)
