@@ -1,5 +1,6 @@
 import os
 from curso import *
+from datospersonales import *
 
 
 def menu_principal():
@@ -40,9 +41,45 @@ def menu_listado_cursos():
     print("---------------------\n")
 
 
-#def matriculacion(objeto):
-#    pass
-    
+def prompt_datos_validar_credenciales():
+    mail_ingresado = input("Ingrese su email: ")
+    contrasenia_ingresada = input("Ingrese la contraseña: ")
+    acceso_validado = False
+    objeto_activo = None
+
+    for objeto in registro:
+        if isinstance(objeto, (Estudiante, Profesor)) and objeto.validar_credenciales(mail_ingresado, contrasenia_ingresada):
+            acceso_validado = True
+            objeto_activo = objeto
+            os.system("clear")  # cambiar a cls para Windows
+            
+            break  
+
+    if acceso_validado:
+        mensaje_acceso_concedido()
+    return objeto_activo
+
+
+
+def prompt_matricular(objeto_activo):
+    opt_submenu_matriculacion = input(
+        "Ingrese el número de curso al que desea matricularse: ")
+    if opt_submenu_matriculacion.isnumeric():
+        opt_submenu_matriculacion = int(opt_submenu_matriculacion)
+        if 1 <= opt_submenu_matriculacion <= 6:
+            curso_a_matricularse = listado_cursos[opt_submenu_matriculacion - 1]
+            if curso_a_matricularse in objeto_activo._mis_cursos:
+                os.system("clear")  # cambiar a cls para Windows
+                mensaje_error_matriculacion()
+                menu_listado_cursos()
+            else:
+                matricula_ingresada = input(
+                    "Ingrese la clave de matriculación: ")
+                if matricula_ingresada == listado_cursos[opt_submenu_matriculacion - 1].contrasenia_matriculacion:
+                    objeto_activo._mis_cursos.append(curso_a_matricularse)
+                    for curso in objeto_activo._mis_cursos:
+                        os.system("clear")  # cambiar a cls para Windows
+                        mensaje_matricula_exitosa(curso)
 
 
 def mensaje_error_matriculacion():
