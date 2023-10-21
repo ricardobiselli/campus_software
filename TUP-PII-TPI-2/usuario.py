@@ -7,6 +7,7 @@ class Usuario(ABC):
         self._apellido = apellido
         self._email = email
         self._contrasenia = contrasenia
+        self._mis_cursos = []
 
     def __str__(self):
         return self._nombre.title()
