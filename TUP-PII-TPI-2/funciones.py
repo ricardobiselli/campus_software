@@ -65,7 +65,6 @@ def prompt_datos_validar_credenciales():
 def prompt_matricular(objeto_activo):
     opt = ""
     while opt != "break":
-        #menu_listado_cursos()
         opt = input(
             "Ingrese el número de curso al que desea matricularse: ")
         if opt.isnumeric():
@@ -99,14 +98,32 @@ def mensaje_matricula_exitosa(curso):
     print("-------------------------------------------------------\n")
 
 
-def imprimir_cursos_inscripto(curso, objeto):
-    print("Estos son todos tus cursos:\n")
-    print("-------------------")
-    index = 0
-    for curso in objeto._mis_cursos:
-        print(f"{index + 1} - {curso.nombre}")
-    print("-------------------\n")
+def imprimir_cursos_inscripto(objeto_activo):
+    while objeto_activo._mis_cursos:
+        print("Estos son todos tus cursos:\n")
+        print("-------------------")
+    
+        indice = 0
+        for curso in objeto_activo.mis_cursos:
+            indice += 1
+            print(f"{indice} - {curso.nombre}")
+        print("-------------------\n")
 
+        curso_seleccionado = input("Ingrese la opción correspondiente a uno de los cursos: ")
+        if curso_seleccionado.isnumeric():
+            indice = int(curso_seleccionado) - 1
+            if 0 <= indice < len(objeto_activo.mis_cursos):
+                curso_seleccionado = objeto_activo.mis_cursos[indice]
+                print(f"Nombre: {curso_seleccionado.nombre}")
+                break
+            else:
+                mensaje_opcion_numero_invalido()
+        else:
+            mensaje_opcion_debe_ser_numerica()
+    if not objeto_activo.mis_cursos:
+        print("------------------------------")
+        print("| No posee cursos activos... |")
+        print("------------------------------\n")    
 
 def mensaje_opcion_numero_invalido():
     print("----------------------------------------")
@@ -130,4 +147,4 @@ def mensaje_fin_programa():
     print("--------------------")
     print("| FIN DEL PROGRAMA |")
     print("--------------------\n")
-    respuesta = "salir"
+    
