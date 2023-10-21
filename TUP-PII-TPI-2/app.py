@@ -2,11 +2,11 @@ import os
 from estudiante import *
 from profesor import *
 from datospersonales import *
-from curso import listado_cursos
 from funciones import *
 
 mensaje_bienvenida()
 
+#bucle externo sin validaciones temporalmente
 opt = 0
 while opt != 4: 
     menu_principal()  
