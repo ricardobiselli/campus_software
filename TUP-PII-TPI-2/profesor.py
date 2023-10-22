@@ -1,4 +1,5 @@
 from usuario import Usuario
+from curso import listado_cursos
 
 class Profesor(Usuario):
     
@@ -26,5 +27,6 @@ class Profesor(Usuario):
     def __str__(self):
         pass
 
-    """def dictar_curso(curso):  # curso:Curso
-        pass"""
+    def dictar_curso(self, objeto_activo, nuevo_objeto_curso):  
+        objeto_activo._mis_cursos.append(nuevo_objeto_curso)
+        listado_cursos.append(nuevo_objeto_curso)

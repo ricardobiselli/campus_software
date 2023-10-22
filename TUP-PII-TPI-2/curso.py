@@ -11,7 +11,7 @@ def generar_contrasenia():
     cod = ''.join(random.choice(characters) for i in range(8))
     return cod    
 
-
+#falta agregar carrera!!!
 curso_1 = Curso("programación 1", "prog1")
 curso_2 = Curso("programación 2", "prog2")
 curso_3 = Curso("Inglés 1", "ing1")
