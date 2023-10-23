@@ -2,13 +2,13 @@ from abc import ABC, abstractmethod
 
 
 class Usuario(ABC):
+    @abstractmethod
     def __init__(self, nombre: str, apellido: str, email: str, contrasenia: str):
         self._nombre = nombre
         self._apellido = apellido
         self._email = email
         self._contrasenia = contrasenia
         self._mis_cursos = []
-
 
     @property
     def nombre(self):
