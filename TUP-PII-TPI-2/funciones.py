@@ -16,15 +16,15 @@ def prompt_datos_validar_credenciales(opt):
                     if objeto.contrasenia == contrasenia_ingresada:
                         acceso_validado = objeto.validar_credenciales(mail_ingresado, contrasenia_ingresada)
                         if acceso_validado:
-                            os.system("clear")
+                            os.system("cls")
                             mensaje_acceso_concedido()
                         objeto_activo = objeto
                     else:
-                        os.system("clear")
+                        os.system("cls")
                         mensaje_contrasenia_invalida()
                     break
             else:
-                os.system("clear")
+                os.system("cls")
                 mensaje_mail_no_registrado()
                 continue
 
@@ -36,11 +36,11 @@ def prompt_datos_validar_credenciales(opt):
                         mensaje_acceso_concedido()
                         objeto_activo = objeto
                     else:
-                        os.system("clear")
+                        os.system("cls")
                         mensaje_contrasenia_invalida()
                     break
             else:
-                os.system("clear")
+                os.system("cls")
                 mensaje_mail_no_registrado()
                 continue
 
@@ -57,7 +57,7 @@ def prompt_matricular(objeto_activo):
             if 1 <= opt <= len(curso.listado_cursos):
                 curso_a_matricularse = curso.listado_cursos[opt - 1]
                 if curso_a_matricularse in objeto_activo._mis_cursos:
-                    os.system("clear")  # cambiar a cls para Windows
+                    os.system("cls")  # cambiar a cls para Windows
                     mensaje_error_matriculacion()
                     menu_listado_cursos()
                 else:
@@ -68,7 +68,7 @@ def prompt_matricular(objeto_activo):
                             objeto_activo, curso_a_matricularse)  # ????
                         opt = "break"
 
-                        os.system("clear")  # cambiar a cls para Windows
+                        os.system("cls")  # cambiar a cls para Windows
                         mensaje_matricula_exitosa(curso_a_matricularse)
                     else:
                         mensaje_contrasenia_invalida()#matricula inválida
@@ -120,7 +120,7 @@ def imprimir_cursos_inscripto(objeto_activo):
 
 def crear_nuevo_curso(objeto_activo):
     nombre_nuevo_curso = input("Ingrese el nombre del curso que va a dictar: ")
-    contrasenia_nuevo_curso = curso.__generar_contrasenia()
+    contrasenia_nuevo_curso = curso.generar_contrasenia()
     nuevo_objeto_curso = curso.Curso(nombre_nuevo_curso, contrasenia_nuevo_curso)
     objeto_activo.dictar_curso(objeto_activo,nuevo_objeto_curso)
 
@@ -182,19 +182,19 @@ def mensaje_matricula_exitosa(curso):
     print("-------------------------------------------------------\n")
 
 def mensaje_opcion_numero_invalido():
-    os.system("clear")
+    os.system("cls")
     print("----------------------------------------")
     print("| No ha ingresado una opción válida... |")
     print("----------------------------------------\n")
 
 def mensaje_opcion_debe_ser_numerica():
-    os.system("clear")
+    os.system("cls")
     print("----------------------------------")
     print("| Ingrese una opción numérica... |")
     print("----------------------------------\n")
 
 def mensaje_mail_no_registrado():
-    os.system("clear")  # cambiar a cls para Windows
+    os.system("cls")  # cambiar a cls para Windows
     print("------------------------------------------------------")
     print("| Mail no registrado, debe darse de alta en alumnado |")
     print("------------------------------------------------------\n")
@@ -205,7 +205,7 @@ def mensaje_contrasenia_invalida():
     print("------------------------------\n")
 
 def mensaje_fin_programa():
-    os.system("clear")
+    os.system("cls")
     print("--------------------")
     print("| FIN DEL PROGRAMA |")
     print("--------------------\n")

@@ -6,7 +6,7 @@ class Curso():
         self.nombre = nombre
         self.contrasenia_matriculacion = contrasenia_matriculacion
 
-def __generar_contrasenia():
+def generar_contrasenia():
     characters = string.ascii_letters + string.digits
     cod = ''.join(random.choice(characters) for i in range(8))
     return cod
