@@ -48,11 +48,11 @@ class Usuario(ABC):
 
     @mis_cursos.setter
     def mis_cursos(self, nuevos_cursos):
-        self._mis_cursos = nuevos_cursos
+        self._mis_cursos = nuevos_cursos   
+    
     def __str__(self):
         return self._nombre.title()
 
-    
     def validar_credenciales(self, email: str, contrasenia: str) -> bool:
         return email==self._email and contrasenia==self._contrasenia
         

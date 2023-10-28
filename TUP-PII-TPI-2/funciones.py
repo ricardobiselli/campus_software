@@ -14,7 +14,8 @@ def prompt_datos_validar_credenciales(opt):
             for objeto in datospersonales.registro:
                 if isinstance(objeto, estudiante.Estudiante) and objeto.email == mail_ingresado:
                     if objeto.contrasenia == contrasenia_ingresada:
-                        acceso_validado = objeto.validar_credenciales(mail_ingresado, contrasenia_ingresada)
+                        acceso_validado = objeto.validar_credenciales(
+                            mail_ingresado, contrasenia_ingresada)
                         if acceso_validado:
                             os.system("cls")
                             mensaje_acceso_concedido()
@@ -32,7 +33,8 @@ def prompt_datos_validar_credenciales(opt):
             for objeto in datospersonales.registro:
                 if isinstance(objeto, profesor.Profesor) and objeto.email == mail_ingresado:
                     if objeto.contrasenia == contrasenia_ingresada:
-                        acceso_validado = objeto.validar_credenciales(mail_ingresado, contrasenia_ingresada)
+                        acceso_validado = objeto.validar_credenciales(
+                            mail_ingresado, contrasenia_ingresada)
                         mensaje_acceso_concedido()
                         objeto_activo = objeto
                     else:
@@ -42,10 +44,12 @@ def prompt_datos_validar_credenciales(opt):
             else:
                 os.system("cls")
                 mensaje_mail_no_registrado()
+                #######################
                 continue
 
         if objeto_activo:
             return objeto_activo
+
 
 def prompt_matricular(objeto_activo):
     opt = ""
@@ -63,7 +67,7 @@ def prompt_matricular(objeto_activo):
                 else:
                     matricula_ingresada = input(
                         "Ingrese la clave de matriculación: ")
-                    if matricula_ingresada == curso.listado_cursos[opt - 1].contrasenia_matriculacion:
+                    if matricula_ingresada == curso.listado_cursos[opt - 1]._contrasenia_matriculacion:
                         objeto_activo.matricular_en_curso(
                             objeto_activo, curso_a_matricularse)  # ????
                         opt = "break"
@@ -71,7 +75,7 @@ def prompt_matricular(objeto_activo):
                         os.system("cls")  # cambiar a cls para Windows
                         mensaje_matricula_exitosa(curso_a_matricularse)
                     else:
-                        mensaje_contrasenia_invalida()#matricula inválida
+                        mensaje_contrasenia_invalida()  # matricula inválida
             else:
                 mensaje_opcion_numero_invalido()
                 menu_listado_cursos()
@@ -79,11 +83,12 @@ def prompt_matricular(objeto_activo):
             mensaje_opcion_debe_ser_numerica()
             menu_listado_cursos()
 
+
 def menu_listado_cursos():
     index = 0
     print("---------------------")
     for cursoItem in curso.listado_cursos:
-        print(f"{index + 1}- {cursoItem.nombre}")
+        print(f"{index + 1}- {cursoItem._nombre}")
         index += 1
     print("---------------------\n")
 
@@ -96,7 +101,7 @@ def imprimir_cursos_inscripto(objeto_activo):
         indice = 0
         for curso in objeto_activo.mis_cursos:
             indice += 1
-            print(f"{indice} - {curso.nombre}")
+            print(f"{indice} - {curso._nombre}")
         print("-------------------\n")
 
         curso_seleccionado = input(
@@ -105,9 +110,10 @@ def imprimir_cursos_inscripto(objeto_activo):
             indice = int(curso_seleccionado) - 1
             if 0 <= indice < len(objeto_activo.mis_cursos):
                 curso_seleccionado = objeto_activo.mis_cursos[indice]
-                print(f"Nombre: {curso_seleccionado.nombre}")
+                print(f"Nombre: {curso_seleccionado._nombre}")
                 if isinstance(objeto_activo, profesor.Profesor):
-                    print(f"Nombre: {curso_seleccionado.nombre} cod. matriculación: {curso_seleccionado.contrasenia_matriculacion}")
+                    print(
+                        f"Nombre: {curso_seleccionado._nombre} cod. matriculación: {curso_seleccionado._contrasenia_matriculacion}")
                 break
             else:
                 mensaje_opcion_numero_invalido()
@@ -118,25 +124,29 @@ def imprimir_cursos_inscripto(objeto_activo):
         print("| No posee cursos activos... |")
         print("------------------------------\n")
 
+
 def crear_nuevo_curso(objeto_activo):
     nombre_nuevo_curso = input("Ingrese el nombre del curso que va a dictar: ")
-    contrasenia_nuevo_curso = curso.generar_contrasenia()
+    contrasenia_nuevo_curso = curso.Curso.generar_contrasenia()
     nuevo_objeto_curso = curso.Curso(nombre_nuevo_curso, contrasenia_nuevo_curso)
-    objeto_activo.dictar_curso(objeto_activo,nuevo_objeto_curso)
+    objeto_activo.dictar_curso(objeto_activo, nuevo_objeto_curso)
 
     print("---------------------------------------------------------------------------------------------")
-    print(f" Ha agregado exitosamente el curso '{nombre_nuevo_curso}', clave mat: '{contrasenia_nuevo_curso}'")
+    print(
+        f" Ha agregado exitosamente el curso '{nombre_nuevo_curso}', clave mat: '{contrasenia_nuevo_curso}'")
     print("---------------------------------------------------------------------------------------------\n")
 
+
 def ordenar_cursos(listado):
-    listado_cursos_ordenados = sorted(listado, key=lambda x: x.nombre)
+    listado_cursos_ordenados = sorted(listado, key=lambda x: x._nombre)
     return listado_cursos_ordenados
+
 
 def mostrar_cursos_ordenados(listado_ordenado):
     for curso in listado_ordenado:
-        print(f"Materia: {curso.nombre} Carrera: Tecnicatura Universitaria en Programación")
+        print(
+            f"Materia: {curso._nombre} Carrera: Tecnicatura Universitaria en Programación")
     print("------------------------------\n")
-
 
 
 def menu_principal():
@@ -147,15 +157,18 @@ def menu_principal():
     print("|4 - Salir                             |")
     print("----------------------------------------\n")
 
+
 def mensaje_bienvenida():
     print("---------------")
     print("| BIENVENIDO! |")
     print("---------------\n")
 
+
 def mensaje_acceso_concedido():
     print("--------------------")
     print("| Acceso concedido!|")
     print("--------------------\n")
+
 
 def menu_alumno():
     print("----------------------------------------")
@@ -164,6 +177,7 @@ def menu_alumno():
     print("|3 - Volver al menú principal          |")
     print("----------------------------------------\n")
 
+
 def menu_profesor():
     print("----------------------------------------")
     print("|1 - Dictar curso                      |")
@@ -171,15 +185,18 @@ def menu_profesor():
     print("|3 - Volver al menú principal          |")
     print("----------------------------------------\n")
 
+
 def mensaje_error_matriculacion():
     print("------------------------------------------------")
     print("| Ya se encuentra matriculado en este curso... |")
     print("------------------------------------------------\n")
 
+
 def mensaje_matricula_exitosa(curso):
     print("-------------------------------------------------------")
-    print(f" Se ha matriculado exitosamente en: {curso.nombre}   ")
+    print(f" Se ha matriculado exitosamente en: {curso._nombre}   ")
     print("-------------------------------------------------------\n")
+
 
 def mensaje_opcion_numero_invalido():
     os.system("cls")
@@ -187,11 +204,13 @@ def mensaje_opcion_numero_invalido():
     print("| No ha ingresado una opción válida... |")
     print("----------------------------------------\n")
 
+
 def mensaje_opcion_debe_ser_numerica():
     os.system("cls")
     print("----------------------------------")
     print("| Ingrese una opción numérica... |")
     print("----------------------------------\n")
+
 
 def mensaje_mail_no_registrado():
     os.system("cls")  # cambiar a cls para Windows
@@ -199,10 +218,12 @@ def mensaje_mail_no_registrado():
     print("| Mail no registrado, debe darse de alta en alumnado |")
     print("------------------------------------------------------\n")
 
+
 def mensaje_contrasenia_invalida():
     print("------------------------------")
     print("| contrasenia inválida   ... |")
     print("------------------------------\n")
+
 
 def mensaje_fin_programa():
     os.system("cls")
