@@ -1,5 +1,6 @@
-from profesor import *
+from profesor  import *
 from estudiante import *
+from carrera  import *
 
 registro = [
     Estudiante(53013, 2023, "Ricardo", "Biselli",
@@ -11,6 +12,8 @@ registro = [
              "2", "3"),  
 ]
 
-"""Al estar hardcodeados no hay forma de chequear que no se repita un mail, podría iterar 
-sobre el registro para buscar repetidos y mostrar una advertencia ? o hacer esa iteración 
-al inicio del programa y forzar la salida si encuentra repetidos"""
+carrera1 = Carrera("Tecnicatura Universitaria en Programación", 2)
+
+listado_carreras = []
+
+listado_carreras.append(carrera1)

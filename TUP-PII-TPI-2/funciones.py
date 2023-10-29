@@ -1,6 +1,6 @@
 import os
 import curso
-import datospersonales
+import datos
 import estudiante
 import profesor
 
@@ -11,7 +11,7 @@ def prompt_datos_validar_credenciales(opt):
         contrasenia_ingresada = input("Ingrese la contraseña: ")
         objeto_activo = None
         if opt == 1:
-            for objeto in datospersonales.registro:
+            for objeto in datos.registro:
                 if isinstance(objeto, estudiante.Estudiante) and objeto.email == mail_ingresado:
                     if objeto.contrasenia == contrasenia_ingresada:
                         acceso_validado = objeto.validar_credenciales(
@@ -27,7 +27,7 @@ def prompt_datos_validar_credenciales(opt):
                     os.system("clear")
                     mensaje_mail_no_registrado()
         elif opt == 2:
-            for objeto in datospersonales.registro:
+            for objeto in datos.registro:
                 if isinstance(objeto, profesor.Profesor) and objeto.email == mail_ingresado:
                     if objeto.contrasenia == contrasenia_ingresada:
                         acceso_validado = objeto.validar_credenciales(
@@ -65,7 +65,7 @@ def alta_profesor():
 
             objeto_nuevo_profesor = profesor.Profesor(titulo_nuevo_profesor, anio_nuevo_profesor,
                                                       nombre_nuevo_profesor, apellido_nuevo_profesor, email_nuevo_profesor, password_nuevo_profesor)
-            datospersonales.registro.append(objeto_nuevo_profesor)
+            datos.registro.append(objeto_nuevo_profesor)
             os.system("clear")
             print("se ha dado de alta un nuevo profesor con estos datos:\n")
             print(F"nombre: {nombre_nuevo_profesor}")
@@ -159,11 +159,25 @@ def imprimir_cursos_inscripto(objeto_activo):
 
 
 def crear_nuevo_curso(objeto_activo):
-    nombre_nuevo_curso = input("Ingrese el nombre del curso que va a dictar: ")
-    contrasenia_nuevo_curso = curso.Curso.generar_contrasenia()
-    nuevo_objeto_curso = curso.Curso(
-        nombre_nuevo_curso, contrasenia_nuevo_curso)
-    objeto_activo.dictar_curso(objeto_activo, nuevo_objeto_curso)
+    indice = 0
+    for carrera in datos.listado_carreras:
+        print(f"{indice +1}{carrera._nombre}")
+        indice += 1
+        if indice == len(datos.listado_carreras):
+            break
+    numero_carrera = input("Ingrese el nro de la carrera que desea elegir:")
+    carrera_elegida = datos.listado_carreras[int(numero_carrera)-1]._nombre
+    nombre_nuevo_curso = input("Ingrese el nombre del curso que desea crear:")
+    for cur in carrera_elegida:
+        if cur == nombre_nuevo_curso:
+            print("-------------------------------------------------------------------------------------------------------")
+            print(f"| Este curso ya está disponible en la carrera {carrera_elegida._nombre}, no puede agregarlo nuevamente|")
+            print("-------------------------------------------------------------------------------------------------------\n")
+        else:           
+            contrasenia_nuevo_curso = curso.Curso.generar_contrasenia()
+            nuevo_objeto_curso = curso.Curso(
+                nombre_nuevo_curso, contrasenia_nuevo_curso)
+            objeto_activo.dictar_curso(objeto_activo, nuevo_objeto_curso)
 
     print("---------------------------------------------------------------------------------------------")
     print(
@@ -211,6 +225,7 @@ def mensaje_acceso_concedido():
 def menu_alumno():
     print("----------------------------------------")
     print("|1 - Matricularse a un curso           |")
+    print("|1 - Desmatricularse a un curso        |")
     print("|2 - Ver curso                         |")
     print("|3 - Volver al menú principal          |")
     print("----------------------------------------\n")

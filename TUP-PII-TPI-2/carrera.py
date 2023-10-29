@@ -24,3 +24,9 @@ class Carrera():
     
     def get_cantidad_materias()->int:
         pass
+    
+carrera1 = Carrera("Tecnicatura Universitaria en Programación", 2)
+
+listado_carreras = []
+
+listado_carreras.append(carrera1)

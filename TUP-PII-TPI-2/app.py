@@ -1,5 +1,5 @@
 import os
-import datospersonales
+import datos
 import funciones
 
 funciones.mensaje_bienvenida()
@@ -64,7 +64,7 @@ while opt != 4:
                                 break
             elif opt == 3:
                 cursos_ordenados = funciones.ordenar_cursos(
-                    datospersonales.listado_cursos)
+                    datos.listado_cursos)
                 funciones.mostrar_cursos_ordenados(cursos_ordenados)
             elif opt == 4:
                 funciones.mensaje_fin_programa()
