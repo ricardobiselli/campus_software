@@ -11,13 +11,13 @@ class Curso():
         self._codigo = Curso._get_cod_curso()
 
     @classmethod
-    def _get_cod_curso(cls) -> int:
-        cls._prox_cod += 1
-        return cls._prox_cod
+    def _get_cod_curso(clear) -> int:
+        clear._prox_cod += 1
+        return clear._prox_cod
 
     
     @classmethod
-    def generar_contrasenia(cls):
+    def generar_contrasenia(clear):
         characters = string.ascii_letters + string.digits
         contrasenia = ''.join(random.choice(characters) for _ in range(8))
         return contrasenia
