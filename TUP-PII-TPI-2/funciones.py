@@ -143,7 +143,6 @@ def imprimir_cursos_inscripto(objeto_activo):
             indice = int(curso_seleccionado) - 1
             if 0 <= indice < len(objeto_activo.mis_cursos):
                 curso_seleccionado = objeto_activo.mis_cursos[indice]
-                print(f"Nombre: {curso_seleccionado._nombre}")
                 if isinstance(objeto_activo, profesor.Profesor):
                     print(
                         f"Nombre: {curso_seleccionado._nombre} cod. matriculación: {curso_seleccionado._contrasenia_matriculacion}")
@@ -161,28 +160,29 @@ def imprimir_cursos_inscripto(objeto_activo):
 def crear_nuevo_curso(objeto_activo):
     indice = 0
     for carrera in datos.listado_carreras:
-        print(f"{indice +1}{carrera._nombre}")
+        print(f"{indice +1}{carrera._nombre}") 
         indice += 1
         if indice == len(datos.listado_carreras):
             break
-    numero_carrera = input("Ingrese el nro de la carrera que desea elegir:")
-    carrera_elegida = datos.listado_carreras[int(numero_carrera)-1]._nombre
-    nombre_nuevo_curso = input("Ingrese el nombre del curso que desea crear:")
-    for cur in carrera_elegida:
-        if cur == nombre_nuevo_curso:
-            print("-------------------------------------------------------------------------------------------------------")
+    numero_carrera = input("Ingrese el nro de la carrera que desea elegir: ")
+    carrera_elegida = datos.listado_carreras[int(numero_carrera)-1] 
+    print(f"ha seleccionado {carrera_elegida._nombre}\n")
+    nombre_nuevo_curso = input("Ingrese el nombre del curso que desea crear: ")
+    for curso_existente in carrera_elegida._cursos:
+        if nombre_nuevo_curso == curso_existente._nombre:
+            print("----------------------------------------------------------------------------------------------------------------------------")
             print(f"| Este curso ya está disponible en la carrera {carrera_elegida._nombre}, no puede agregarlo nuevamente|")
-            print("-------------------------------------------------------------------------------------------------------\n")
-        else:           
-            contrasenia_nuevo_curso = curso.Curso.generar_contrasenia()
-            nuevo_objeto_curso = curso.Curso(
-                nombre_nuevo_curso, contrasenia_nuevo_curso)
-            objeto_activo.dictar_curso(objeto_activo, nuevo_objeto_curso)
-
-    print("---------------------------------------------------------------------------------------------")
+            print("----------------------------------------------------------------------------------------------------------------------------\n")
+            return
+    else:           
+        contrasenia_nuevo_curso = curso.Curso.generar_contrasenia() 
+        nuevo_objeto_curso = curso.Curso(
+            nombre_nuevo_curso, contrasenia_nuevo_curso)
+        objeto_activo.dictar_curso(objeto_activo, nuevo_objeto_curso, carrera_elegida)
+    print("--------------------------------------------------------------------------------------------------------")
     print(
-        f" Ha agregado exitosamente el curso '{nombre_nuevo_curso}', clave mat: '{contrasenia_nuevo_curso}'")
-    print("---------------------------------------------------------------------------------------------\n")
+        f" Ha agregado exitosamente el curso '{nombre_nuevo_curso}', clave mat: '{contrasenia_nuevo_curso}', código: '{nuevo_objeto_curso._codigo}'")
+    print("--------------------------------------------------------------------------------------------------------\n")
 
 
 def ordenar_cursos(listado):

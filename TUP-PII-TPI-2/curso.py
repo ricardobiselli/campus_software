@@ -3,7 +3,7 @@ import random
 
 
 class Curso():
-    _prox_cod = int(0)
+    _prox_cod = 10
 
     def __init__(self, nombre: str, contrasenia_matriculacion: str):
         self._nombre = nombre

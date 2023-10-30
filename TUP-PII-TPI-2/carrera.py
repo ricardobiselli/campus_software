@@ -2,7 +2,7 @@ class Carrera():
     def __init__(self, nombre: str, cant_anios: int) -> None:
         self._nombre =  nombre
         self._cant_anios = cant_anios
-    
+        self._cursos = []
     @property
     def nombre(self):
         return self._nombre
@@ -25,8 +25,3 @@ class Carrera():
     def get_cantidad_materias()->int:
         pass
     
-carrera1 = Carrera("Tecnicatura Universitaria en Programación", 2)
-
-listado_carreras = []
-
-listado_carreras.append(carrera1)
