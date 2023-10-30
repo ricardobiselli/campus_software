@@ -1,5 +1,6 @@
 import string
 import random
+import archivo
 
 
 class Curso():
@@ -9,6 +10,10 @@ class Curso():
         self._nombre = nombre
         self._contrasenia_matriculacion = contrasenia_matriculacion
         self._codigo = Curso._get_cod_curso()
+        self._archivos = []
+    
+    def nuevo_archivo(self, archivo: archivo.Archivo):
+        self._archivos.append(archivo)
 
     @classmethod
     def _get_cod_curso(cls) -> int:

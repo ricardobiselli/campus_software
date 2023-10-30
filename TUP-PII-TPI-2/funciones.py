@@ -3,7 +3,7 @@ import curso
 import datos
 import estudiante
 import profesor
-
+from archivo import Archivo
 
 def prompt_datos_validar_credenciales(opt):
     while True:
@@ -50,9 +50,9 @@ def prompt_datos_validar_credenciales(opt):
 def alta_profesor():
     while True:
         codigo_admin = "admin123"
-        print("--------------------------------------------------------------------------------------------------")
-        print("|Ingrese el código de administrador para darse de alta en el sistema o 'exit' para volver atrás...|")
-        print("---------------------------------------------------------------------------------------------------\n")
+        print("-------------------------------------------------------------------------")
+        print("|Ingrese el código de administrador para darse de alta en el sistema ...|")
+        print("-------------------------------------------------------------------------\n")
         codigo_admin_ingresado = input("Ingrese el código de administrador: ")
         if codigo_admin_ingresado == codigo_admin:
             os.system("clear")
@@ -94,7 +94,7 @@ def prompt_matricular(objeto_activo):
             if 1 <= opt <= len(curso.listado_cursos):
                 curso_a_matricularse = curso.listado_cursos[opt - 1]
                 if curso_a_matricularse in objeto_activo._mis_cursos:
-                    os.system("clear")  # cambiar a clear para Windows
+                    os.system("clear")  
                     mensaje_error_matriculacion()
                     menu_listado_cursos()
                 else:
@@ -102,10 +102,10 @@ def prompt_matricular(objeto_activo):
                         "Ingrese la clave de matriculación: ")
                     if matricula_ingresada == curso.listado_cursos[opt - 1]._contrasenia_matriculacion:
                         objeto_activo.matricular_en_curso(
-                            objeto_activo, curso_a_matricularse)  # ????
+                            objeto_activo, curso_a_matricularse) 
                         opt = "break"
 
-                        os.system("clear")  # cambiar a clear para Windows
+                        os.system("clear")  
                         mensaje_matricula_exitosa(curso_a_matricularse)
                     else:
                         mensaje_contrasenia_invalida()  # matricula inválida
@@ -120,8 +120,8 @@ def prompt_matricular(objeto_activo):
 def menu_listado_cursos():
     index = 0
     print("---------------------")
-    for cursoItem in curso.listado_cursos:
-        print(f"{index + 1}- {cursoItem._nombre}")
+    for curso in curso.listado_cursos:
+        print(f"{index + 1}- {curso._nombre}")
         index += 1
     print("---------------------\n")
 
@@ -144,8 +144,30 @@ def imprimir_cursos_inscripto(objeto_activo):
             if 0 <= indice < len(objeto_activo.mis_cursos):
                 curso_seleccionado = objeto_activo.mis_cursos[indice]
                 if isinstance(objeto_activo, profesor.Profesor):
+                    print("-------------------------------------------")
                     print(
-                        f"Nombre: {curso_seleccionado._nombre} cod. matriculación: {curso_seleccionado._contrasenia_matriculacion}")
+                        f"Nombre: {curso_seleccionado._nombre}\n"
+                        f"contraseña matriculación: {curso_seleccionado._contrasenia_matriculacion}\n"
+                        f"código de curso: {curso_seleccionado._codigo}\n"
+                        f"cantidad de archivos: {len(curso_seleccionado._archivos)}\n")
+                    print("-------------------------------------------")
+                    respuesta_agregar_curso= input("Desea agregar un archivo adjunto? si/no: ")
+                    if respuesta_agregar_curso == "si": #AGREGAR VALIDACIONES
+                        nombre_archivo = input(
+                            "Ingrese el nombre del archivo adjunto: ")
+                        formato_archivo = input(
+                            "Ingrese el formato del archivo adjunto, por ejemplo pdf: ")
+                        nuevo_objeto_archivo = Archivo(nombre_archivo, formato_archivo)
+                        curso_seleccionado.nuevo_archivo(nuevo_objeto_archivo)
+                        os.system("clear")
+                        print("-----------------------------------------")
+                        print("| Archivo agregado con exitosamente!!!  |")
+                        print("-----------------------------------------\n")
+                        print(f"Nombre del curso: {curso_seleccionado._nombre}")
+                        print("Lista de archivos:")
+                        for archivo in curso_seleccionado._archivos:
+                            print(f" - {archivo._nombre} ({archivo._formato})") 
+                        
                 break
             else:
                 mensaje_opcion_numero_invalido()
@@ -160,13 +182,15 @@ def imprimir_cursos_inscripto(objeto_activo):
 def crear_nuevo_curso(objeto_activo):
     indice = 0
     for carrera in datos.listado_carreras:
-        print(f"{indice +1}{carrera._nombre}") 
+        print("--------------------------------------------------")
+        print(f" {indice +1} - {carrera._nombre}") 
+        print("--------------------------------------------------\n")
         indice += 1
         if indice == len(datos.listado_carreras):
             break
     numero_carrera = input("Ingrese el nro de la carrera que desea elegir: ")
     carrera_elegida = datos.listado_carreras[int(numero_carrera)-1] 
-    print(f"ha seleccionado {carrera_elegida._nombre}\n")
+    print(f"ha seleccionado: {carrera_elegida._nombre}\n")
     nombre_nuevo_curso = input("Ingrese el nombre del curso que desea crear: ")
     for curso_existente in carrera_elegida._cursos:
         if nombre_nuevo_curso == curso_existente._nombre:
@@ -193,12 +217,9 @@ def ordenar_cursos(listado):
 def mostrar_cursos_ordenados(listado_ordenado):
     for curso in listado_ordenado:
         print(
-            f"Materia: {curso._nombre} Carrera: Tecnicatura Universitaria en Programación")
+            f"Materia: {curso._nombre} Carrera: Tecnicatura Universitaria en Programación") #   ARREGLAR!!!!
     print("------------------------------\n")
 
-
-"""def opcion_alta_profesor():
-    while True:"""
 
 
 def menu_principal():
@@ -266,7 +287,7 @@ def mensaje_opcion_debe_ser_numerica():
 
 
 def mensaje_mail_no_registrado():
-    os.system("clear")  # cambiar a clear para Windows
+    os.system("clear")  
     print("------------------------------------------------------")
     print("| Mail no registrado, debe darse de alta en alumnado |")
     print("------------------------------------------------------\n")
