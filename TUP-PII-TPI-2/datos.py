@@ -1,7 +1,6 @@
 from profesor import Profesor
 from estudiante import *
 from carrera import *
-from curso import Curso
 
 registro = [
     Estudiante(53013, 2023, "Ricardo", "Biselli",
@@ -53,6 +52,6 @@ listado_carreras.append(carrera1)
 
 #carrera2.add_curso(listado_cursos[1])
 
-#carrera1.add_alumno(registro[1])
+carrera1.add_alumno(registro[1])
 
 

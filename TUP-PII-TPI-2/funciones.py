@@ -29,7 +29,7 @@ def prompt_datos_validar_credenciales(opt):
                     else:
                         os.system("clear")
                         mensaje_contrasenia_invalida()
-                        return
+                        return  # vuelta al menu principal ante mail correcto pero contraseña inválida
             else:
                 os.system("clear")
                 mensaje_mail_no_registrado()
@@ -53,7 +53,7 @@ def prompt_datos_validar_credenciales(opt):
                     else:
                         os.system("clear")
                         mensaje_contrasenia_invalida()
-                        menu_principal()
+                        break
             else:
                 os.system("clear")
                 mensaje_mail_no_registrado()
@@ -111,8 +111,11 @@ def alta_profesor():
 
 
 def prompt_matricular(objeto_activo):
-    opt = ""
-    while opt != "break":
+    while True:
+        if not datos.listado_cursos:
+            os.system("clear")
+            print("No existen cursos cargados todavía!")
+            break
         opt = input("Ingrese el número de curso al que desea matricularse: ")
         if opt.isnumeric():
             opt = int(opt)
@@ -124,20 +127,12 @@ def prompt_matricular(objeto_activo):
                     menu_listado_cursos()
                 else:
                     matricula_ingresada = input("Ingrese la clave de matriculación: ")
-                    if (
-                        matricula_ingresada
-                        == datos.listado_cursos[opt - 1]._contrasenia_matriculacion
-                    ):
-                        objeto_activo.matricular_en_curso(
-                            objeto_activo, curso_a_matricularse
-                        )  
-                        opt = "break"
-
+                    if matricula_ingresada == datos.listado_cursos[opt - 1]._contrasenia_matriculacion:
+                        objeto_activo.matricular_en_curso(objeto_activo, curso_a_matricularse)
                         os.system("clear")
                         alumno_encontrado = False
                         for carrera in datos.listado_carreras:
                             for alumno in carrera.alumnos:
-                                print(alumno.nombre == objeto_activo.nombre)
                                 if alumno.nombre == objeto_activo.nombre:
                                     alumno_encontrado = True
                                     break
@@ -145,16 +140,16 @@ def prompt_matricular(objeto_activo):
                             mensaje_matricula_exitosa(curso_a_matricularse)
                         else:
                             mensaje_carrera_unregistered()
-
                     else:
-                        mensaje_contrasenia_invalida()  
-                return
+                        mensaje_contrasenia_invalida()
+                break
             else:
                 mensaje_opcion_numero_invalido()
                 menu_listado_cursos()
         else:
             mensaje_opcion_debe_ser_numerica()
             menu_listado_cursos()
+
 
 
 def prompt_desmatricular(objeto_activo):
@@ -185,11 +180,13 @@ def prompt_desmatricular(objeto_activo):
 
 def menu_listado_cursos():
     index = 0
-    print("---------------------")
+    print("--------------------------------------")
     for cursoItem in datos.listado_cursos:
         print(f"{index + 1}- {cursoItem._nombre}")
         index += 1
-    print("---------------------\n")
+    if datos.listado_cursos == []:  
+        print("Todavía no hay cursos disponibles")
+    print("--------------------------------------\n")
 
 
 def imprimir_cursos_inscripto(objeto_activo):
@@ -276,7 +273,7 @@ def crear_nuevo_curso(objeto_activo):
         else:
             print("Por favor, ingrese SOLO NÚMEROS!")
     print("---------------------------------------------------------------")
-    print(f"ha seleccionado {carrera_elegida._nombre}\n")
+    print(f"ha seleccionado {carrera_elegida._nombre}")
     print("---------------------------------------------------------------")
     nombre_nuevo_curso = input("Ingrese el nombre del curso que desea crear: ")
     for curso_existente in carrera_elegida._cursos:

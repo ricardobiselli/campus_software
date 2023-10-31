@@ -28,13 +28,3 @@ class Curso():
     
     def __str__(self):
         return f"Nombre: {self._nombre} - Archivos {self._archivos.nombre}"
-
-curso_1 = Curso("programación 1", "prog1")
-curso_2 = Curso("programación 2", "prog2")
-curso_3 = Curso("inglés 1", "ing1")
-curso_4 = Curso("inglés 2", "ing2")
-curso_5 = Curso("laboratorio 1", "lab1")
-curso_6 = Curso("laboratorio 2", "lab2")
-
-listado_cursos = [curso_1, curso_2, curso_3, curso_4, curso_5, curso_6]
-

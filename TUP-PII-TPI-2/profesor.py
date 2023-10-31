@@ -1,5 +1,5 @@
-from curso import listado_cursos
 from usuario import *
+import datos
 
 
 class Profesor(Usuario):
@@ -31,6 +31,6 @@ class Profesor(Usuario):
         # agregar curso a la lista de cursos del profesor
         objeto_activo._mis_cursos.append(nuevo_objeto_curso)
         # agregar curso a la lista general de cursos
-        listado_cursos.append(nuevo_objeto_curso)
+        datos.listado_cursos.append(nuevo_objeto_curso)
         # agregar curso a la carrera
         carrera._cursos.append(nuevo_objeto_curso)
