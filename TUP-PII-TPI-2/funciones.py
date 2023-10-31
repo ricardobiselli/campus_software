@@ -19,20 +19,21 @@ def prompt_datos_validar_credenciales(opt):
                 ):
                     if objeto.contrasenia == contrasenia_ingresada:
                         acceso_validado = objeto.validar_credenciales(
-                            mail_ingresado, contrasenia_ingresada)
+                            mail_ingresado, contrasenia_ingresada
+                        )
                         if acceso_validado:
-                            os.system("clear") 
+                            os.system("clear")
                             objeto_activo = objeto  # login exitoso!
                             mensaje_acceso_concedido(objeto_activo)
                         break
                     else:
                         os.system("clear")
                         mensaje_contrasenia_invalida()
-                        menu_principal() # vuelta al menu principal ante contraseña inválida
+                        menu_principal()  # vuelta al menu principal ante contraseña inválida
             else:
                 os.system("clear")
                 mensaje_mail_no_registrado()
-                return # vuelta al menu principal ante mail no registrado
+                return  # vuelta al menu principal ante mail no registrado
 
         elif opt == 2:
             for objeto in datos.registro:
@@ -45,9 +46,9 @@ def prompt_datos_validar_credenciales(opt):
                             mail_ingresado, contrasenia_ingresada
                         )
                         os.system("clear")
-                        objeto_activo = objeto 
+                        objeto_activo = objeto
                         mensaje_acceso_concedido(objeto_activo)
-                        
+
                         break
                     else:
                         os.system("clear")
@@ -56,16 +57,22 @@ def prompt_datos_validar_credenciales(opt):
             else:
                 os.system("clear")
                 mensaje_mail_no_registrado()
-                return False # False permite entrar a la funcion para registro de profesor en la app
+                return False  # False permite entrar a la funcion para registro de profesor en la app
         if objeto_activo:
-            return objeto_activo # permite que la app continue con el submenu profesor
+            return objeto_activo  # permite que la app continue con el submenu profesor
 
 
 def alta_profesor():
     codigo_admin = "admin123"
-    print("-------------------------------------------------------------------------------------------")
-    print("|Ingrese el código de administrador para darse de alta en el sistema o ENTER para salir...|")
-    print("-------------------------------------------------------------------------------------------\n")
+    print(
+        "-------------------------------------------------------------------------------------------"
+    )
+    print(
+        "|Ingrese el código de administrador para darse de alta en el sistema o ENTER para salir...|"
+    )
+    print(
+        "-------------------------------------------------------------------------------------------\n"
+    )
     codigo_admin_ingresado = input("Ingrese el código de administrador: ")
     if codigo_admin_ingresado == codigo_admin:
         os.system("clear")
@@ -116,8 +123,7 @@ def prompt_matricular(objeto_activo):
                     mensaje_error_matriculacion()
                     menu_listado_cursos()
                 else:
-                    matricula_ingresada = input(
-                        "Ingrese la clave de matriculación: ")
+                    matricula_ingresada = input("Ingrese la clave de matriculación: ")
                     if (
                         matricula_ingresada
                         == curso.listado_cursos[opt - 1]._contrasenia_matriculacion
@@ -127,7 +133,7 @@ def prompt_matricular(objeto_activo):
                         )  # ????
                         opt = "break"
 
-                        os.system("clear") 
+                        os.system("clear")
                         alumno_encontrado = False
                         for carrera in datos.listado_carreras:
                             for alumno in carrera.alumnos:
@@ -154,8 +160,7 @@ def prompt_matricular(objeto_activo):
 def prompt_desmatricular(objeto_activo):
     opt = ""
     while opt != "break":
-        opt = input(
-            "Ingrese el número del curso al que desea desmatricularse: ")
+        opt = input("Ingrese el número del curso al que desea desmatricularse: ")
         if opt.isnumeric():
             opt = int(opt)
             if 1 <= opt <= len(curso.listado_cursos):
@@ -167,6 +172,7 @@ def prompt_desmatricular(objeto_activo):
                     opt = "break"
 
                     os.system("clear")
+                    print("Se ha desmatriculado con exito")
                 else:
                     mensaje_curso_unregistered()
             else:
@@ -202,7 +208,7 @@ def imprimir_cursos_inscripto(objeto_activo):
         )
         if curso_seleccionado.isnumeric():
             indice = int(curso_seleccionado) - 1
-            if 0 <= curso_seleccionado < len(objeto_activo.mis_cursos):
+            if 0 <= indice < len(objeto_activo.mis_cursos):  # ACA HAY UN ERROR
                 curso_seleccionado = objeto_activo.mis_cursos[indice]
                 if isinstance(objeto_activo, profesor.Profesor):
                     print("-------------------------------------------")
@@ -210,31 +216,36 @@ def imprimir_cursos_inscripto(objeto_activo):
                         f"Nombre: {curso_seleccionado._nombre}\n"
                         f"contraseña matriculación: {curso_seleccionado._contrasenia_matriculacion}\n"
                         f"código de curso: {curso_seleccionado._codigo}\n"
-                        f"cantidad de archivos: {len(curso_seleccionado._archivos)}\n")
+                        f"cantidad de archivos: {len(curso_seleccionado._archivos)}\n"
+                    )
                     print("-------------------------------------------")
                     respuesta_agregar_curso = input(
-                        "Desea agregar un archivo adjunto? si/no: ")
+                        "Desea agregar un archivo adjunto? si/no: "
+                    )
                     while respuesta_agregar_curso.lower() not in ["si", "no"]:
                         print("Por favor, ingrese 'si' o 'no'.")
-                        respuesta_agregar_curso = input("Desea agregar un archivo adjunto? (si/no): ")
-                    if respuesta_agregar_curso == "si": 
+                        respuesta_agregar_curso = input(
+                            "Desea agregar un archivo adjunto? (si/no): "
+                        )
+                    if respuesta_agregar_curso == "si":
                         nombre_archivo = input(
-                            "Ingrese el nombre del archivo adjunto: ")
+                            "Ingrese el nombre del archivo adjunto: "
+                        )
                         formato_archivo = input(
-                            "Ingrese el formato del archivo adjunto, por ejemplo pdf: ")
-                        nuevo_objeto_archivo = Archivo(
-                            nombre_archivo, formato_archivo)
+                            "Ingrese el formato del archivo adjunto, por ejemplo pdf: "
+                        )
+                        nuevo_objeto_archivo = Archivo(nombre_archivo, formato_archivo)
                         curso_seleccionado.nuevo_archivo(nuevo_objeto_archivo)
                         os.system("clear")
                         print("-----------------------------------------")
                         print("| Archivo agregado con exitosamente!!!  |")
                         print("-----------------------------------------\n")
-                        print(
-                            f"Nombre del curso: {curso_seleccionado._nombre}")
+                        print(f"Nombre del curso: {curso_seleccionado._nombre}")
                         print("Lista de archivos:")
                         for archivo in curso_seleccionado._archivos:
                             print(
-                                f" - {archivo._nombre} ({archivo._formato}) - fecha: {archivo._fecha}\n")
+                                f" - {archivo._nombre} ({archivo._formato}) - fecha: {archivo._fecha}\n"
+                            )
                     else:
                         os.system("clear")
                 break
@@ -264,13 +275,9 @@ def crear_nuevo_curso(objeto_activo):
                 print("ERROR, número inválido")
         else:
             print("Por favor, ingrese SOLO NÚMEROS!")
-    print(
-        "---------------------------------------------------------------"
-    )
+    print("---------------------------------------------------------------")
     print(f"ha seleccionado {carrera_elegida._nombre}\n")
-    print(
-        "---------------------------------------------------------------"
-    )
+    print("---------------------------------------------------------------")
     nombre_nuevo_curso = input("Ingrese el nombre del curso que desea crear: ")
     for curso_existente in carrera_elegida._cursos:
         if nombre_nuevo_curso == curso_existente._nombre:
@@ -286,10 +293,8 @@ def crear_nuevo_curso(objeto_activo):
             return
     else:
         contrasenia_nuevo_curso = curso.Curso.generar_contrasenia()
-        nuevo_objeto_curso = curso.Curso(
-            nombre_nuevo_curso, contrasenia_nuevo_curso)
-        objeto_activo.dictar_curso(
-            objeto_activo, nuevo_objeto_curso, carrera_elegida)
+        nuevo_objeto_curso = curso.Curso(nombre_nuevo_curso, contrasenia_nuevo_curso)
+        objeto_activo.dictar_curso(objeto_activo, nuevo_objeto_curso, carrera_elegida)
     print(
         "--------------------------------------------------------------------------------------------------------"
     )
@@ -301,6 +306,7 @@ def crear_nuevo_curso(objeto_activo):
     )
     return
 
+
 def ordenar_cursos(listado):
     listado_cursos_ordenados = sorted(listado, key=lambda x: x._nombre)
     return listado_cursos_ordenados
@@ -309,7 +315,9 @@ def ordenar_cursos(listado):
 def mostrar_cursos_ordenados(listado_ordenado):
     for carrera in datos.listado_carreras:
         for curso in listado_ordenado:
-            print(f"Materia: {curso._nombre} Carrera: {carrera._nombre}")
+            for cursocarrera in carrera._cursos:
+                if cursocarrera._nombre == curso._nombre:
+                    print(f"Materia: {curso._nombre} Carrera: {carrera._nombre}")
     print("------------------------------\n")
 
 

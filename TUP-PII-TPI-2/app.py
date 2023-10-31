@@ -21,9 +21,10 @@ while True:
                     funciones.menu_listado_cursos()
                     funciones.prompt_matricular(objeto_activo)
                 elif opt_alumno == 2:
-                    funciones.imprimir_cursos_inscripto(objeto_activo)
+                    funciones.menu_listado_cursos()
+                    funciones.prompt_desmatricular(objeto_activo)
                 elif opt_alumno == 3:
-                    pass 
+                    funciones.imprimir_cursos_inscripto(objeto_activo)
                 elif opt_alumno == 4:
                     break
     elif opt == 2:
@@ -41,7 +42,8 @@ while True:
                 elif opt_profesor == 3:
                     break
     elif opt == 3:
-        pass 
+        cursos_ordenados = funciones.ordenar_cursos(datos.listado_cursos)
+        funciones.mostrar_cursos_ordenados(cursos_ordenados)
     elif opt == 4:
         funciones.mensaje_fin_programa()
         break
