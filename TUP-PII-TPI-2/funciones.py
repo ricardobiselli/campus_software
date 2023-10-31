@@ -29,7 +29,7 @@ def prompt_datos_validar_credenciales(opt):
                     else:
                         os.system("clear")
                         mensaje_contrasenia_invalida()
-                        menu_principal()  # vuelta al menu principal ante contraseña inválida
+                        return
             else:
                 os.system("clear")
                 mensaje_mail_no_registrado()
