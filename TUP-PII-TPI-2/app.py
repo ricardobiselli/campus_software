@@ -6,14 +6,11 @@ funciones.mensaje_bienvenida()
 
 opt = 0 
 while opt != 4:
-    funciones.menu_principal()
-    opt = funciones.validar_opcion_menu_principal()
+    opt = funciones.menu_principal()
     if opt == 1:
-        objeto_activo = funciones.prompt_datos_validar_credenciales(
-            opt)
+        objeto_activo = funciones.prompt_datos_validar_credenciales(opt)
         if objeto_activo:
-            funciones.menu_alumno()
-            opt_alumno = funciones.validar_opcion_menu_alumno()
+            opt_alumno = funciones.menu_alumno()
             os.system("clear")
             if opt_alumno == 1:
                 funciones.menu_listado_cursos()
@@ -27,10 +24,11 @@ while opt != 4:
     elif opt == 2:
         objeto_activo = funciones.prompt_datos_validar_credenciales(opt)
         if not objeto_activo:
-            registrar_profesor = funciones.alta_profesor()
-        if objeto_activo:
-            funciones.menu_profesor()
-            opt_profesor = funciones.validar_opcion_menu_profesor()
+            alta_profesor = funciones.alta_profesor()
+            if alta_profesor:
+                funciones.mensaje_acceso_concedido() 
+        else:  
+            opt_profesor = funciones.menu_profesor()
             os.system("clear")
             if opt_profesor == 1:
                 nuevo_curso = funciones.crear_nuevo_curso(objeto_activo)

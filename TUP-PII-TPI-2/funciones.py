@@ -49,7 +49,6 @@ def prompt_datos_validar_credenciales(opt):
 
 
 def alta_profesor():
-    while True:
         codigo_admin = "admin123"
         print("-------------------------------------------------------------------------------------------")
         print("|Ingrese el código de administrador para darse de alta en el sistema o ENTER para salir...|")
@@ -77,12 +76,13 @@ def alta_profesor():
             print(F"contraseña: {password_nuevo_profesor}\n")
             print("registro exitoso, volviendo al menu principal...\n")
             return True
+            prompt_datos_validar_credenciales()
         else:
             os.system("clear")
             print("--------------------------------------------------------------------")
             print("|código de administrador incorrecto, volviendo al menú principal...|")
             print("--------------------------------------------------------------------\n")
-            break
+            return False
     
 
 def prompt_matricular(objeto_activo):
@@ -232,39 +232,18 @@ def menu_principal():
     print("|3 - Ver cursos                        |")
     print("|4 - Salir                             |")
     print("----------------------------------------\n")
-    
-def validar_opcion_menu_principal():
-    opt = input("Ingrese la opción del menú: ")
-    if opt.isdigit():
-        opt = int(opt)
-        if 1 <= opt <= 4:
-            return opt
-        else:
-            mensaje_opcion_numero_invalido()
-    else:
-        mensaje_opcion_debe_ser_numerica()
-        
-def validar_opcion_menu_alumno():
-    opt = input("Ingrese la opción del menú: ")
-    if opt.isdigit():
-        opt = int(opt)
-        if 1 <= opt <= 4:
-            return opt
-        else:
-            mensaje_opcion_numero_invalido()
-    else:
-        mensaje_opcion_debe_ser_numerica()      
 
-def validar_opcion_menu_profesor():
     opt = input("Ingrese la opción del menú: ")
     if opt.isdigit():
         opt = int(opt)
-        if 1 <= opt<= 3:
+        if 1 <= opt <= 4:
             return opt
         else:
             mensaje_opcion_numero_invalido()
     else:
-        mensaje_opcion_debe_ser_numerica()                       
+        mensaje_opcion_debe_ser_numerica()   
+
+                   
 
 
 def mensaje_bienvenida():
@@ -287,6 +266,15 @@ def menu_alumno():
     print("|3 - Volver al menú principal          |")
     print("----------------------------------------\n")
 
+    opt = input("Ingrese la opción del menú: ")
+    if opt.isdigit():
+        opt = int(opt)
+        if 1 <= opt <= 4:
+            return opt
+        else:
+            mensaje_opcion_numero_invalido()
+    else:
+        mensaje_opcion_debe_ser_numerica()   
 
 def menu_profesor():
     print("----------------------------------------")
@@ -295,6 +283,15 @@ def menu_profesor():
     print("|3 - Volver al menú principal          |")
     print("----------------------------------------\n")
 
+    opt = input("Ingrese la opción del menú: ")
+    if opt.isdigit():
+        opt = int(opt)
+        if 1 <= opt<= 3:
+            return opt
+        else:
+            mensaje_opcion_numero_invalido()
+    else:
+        mensaje_opcion_debe_ser_numerica()    
 
 def mensaje_error_matriculacion():
     print("------------------------------------------------")
