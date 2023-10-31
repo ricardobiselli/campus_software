@@ -12,32 +12,32 @@ while opt != 4:
         opt = int(opt)
         if 1 <= opt <= 4:
             if opt == 1:
-                objeto_activo = funciones.prompt_datos_validar_credenciales(
-                    opt)
+                objeto_activo = funciones.prompt_datos_validar_credenciales(opt)
                 while True:
                     if objeto_activo:
                         funciones.menu_alumno()
                         opt_alumno = input("Ingrese la opción del menú: ")
                         if opt_alumno.isdigit():
                             opt_alumno = int(opt_alumno)
-                            if 1 <= opt_alumno <= 3:
+                            if 1 <= opt_alumno <= 4:
                                 os.system("clear")
 
                                 if opt_alumno == 1:
                                     funciones.menu_listado_cursos()
                                     funciones.prompt_matricular(objeto_activo)
                                 elif opt_alumno == 2:
-                                    funciones.imprimir_cursos_inscripto(
-                                        objeto_activo)
+                                    funciones.menu_listado_cursos()
+                                    funciones.prompt_desmatricular(objeto_activo)
                                 elif opt_alumno == 3:
+                                    funciones.imprimir_cursos_inscripto(objeto_activo)
+                                elif opt_alumno == 4:
                                     break
                             else:
                                 funciones.mensaje_opcion_numero_invalido()
                         else:
                             funciones.mensaje_opcion_debe_ser_numerica()
             elif opt == 2:
-                objeto_activo = funciones.prompt_datos_validar_credenciales(
-                    opt)
+                objeto_activo = funciones.prompt_datos_validar_credenciales(opt)
                 while True:
                     if objeto_activo:
                         funciones.menu_profesor()
@@ -48,10 +48,10 @@ while opt != 4:
                                 os.system("clear")
                                 if opt_profesor == 1:
                                     nuevo_curso = funciones.crear_nuevo_curso(
-                                        objeto_activo)
+                                        objeto_activo
+                                    )
                                 elif opt_profesor == 2:
-                                    funciones.imprimir_cursos_inscripto(
-                                        objeto_activo)
+                                    funciones.imprimir_cursos_inscripto(objeto_activo)
                                 elif opt_profesor == 3:
                                     break
                             else:
@@ -63,8 +63,7 @@ while opt != 4:
                             if funciones.alta_profesor() == True:
                                 break
             elif opt == 3:
-                cursos_ordenados = funciones.ordenar_cursos(
-                    datos.listado_cursos)
+                cursos_ordenados = funciones.ordenar_cursos(datos.listado_cursos)
                 funciones.mostrar_cursos_ordenados(cursos_ordenados)
             elif opt == 4:
                 funciones.mensaje_fin_programa()
