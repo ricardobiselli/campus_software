@@ -433,9 +433,9 @@ def mensaje_carrera_unregistered():
 
 
 def mensaje_curso_unregistered():
-    print("------------------------------")
+    print("--------------------------------------------------")
     print("| No se encuentra matriculado en este curso  ... |")
-    print("------------------------------\n")
+    print("--------------------------------------------------\n")
 
 
 def mensaje_fin_programa():

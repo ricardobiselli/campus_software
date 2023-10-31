@@ -39,8 +39,6 @@ while True:
                 elif opt_profesor == 2:
                     funciones.imprimir_cursos_inscripto(objeto_activo)
                 elif opt_profesor == 3:
-                    break  
-                elif opt_profesor == 4:
                     break
     elif opt == 3:
         pass 

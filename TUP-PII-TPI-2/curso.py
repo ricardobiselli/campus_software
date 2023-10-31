@@ -16,13 +16,13 @@ class Curso():
         self._archivos.append(archivo)
 
     @classmethod
-    def _get_cod_curso(cls) -> int:
+    def _get_cod_curso(cls) -> int: # REVISAR QUE QUEDE "CLS" Y NO CLEAR!!!
         cls._prox_cod += 1
         return cls._prox_cod
 
     
     @classmethod
-    def generar_contrasenia(cls):
+    def generar_contrasenia(cls): #REVISAR QUE QUEDE "CLS" Y NO CLEAR!!!
         characters = string.ascii_letters + string.digits
         contrasenia = ''.join(random.choice(characters) for _ in range(8))
         return contrasenia
