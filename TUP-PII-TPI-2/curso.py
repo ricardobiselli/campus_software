@@ -26,6 +26,9 @@ class Curso():
         characters = string.ascii_letters + string.digits
         contrasenia = ''.join(random.choice(characters) for _ in range(8))
         return contrasenia
+    
+    def __str__(self):
+        return f"Nombre: {self._nombre} - Archivos {self._archivos.nombre}"
 
 
 #mover todo a datos

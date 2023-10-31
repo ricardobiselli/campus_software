@@ -6,7 +6,6 @@ import profesor
 from archivo import Archivo
 
 def prompt_datos_validar_credenciales(opt):
-    while True:
         mail_ingresado = input("Ingrese su email: ")
         contrasenia_ingresada = input("Ingrese la contraseña: ")
         objeto_activo = None
@@ -23,9 +22,11 @@ def prompt_datos_validar_credenciales(opt):
                     else:
                         os.system("clear")
                         mensaje_contrasenia_invalida()
-                else:
-                    os.system("clear")
-                    mensaje_mail_no_registrado()
+                        break
+            else:
+                os.system("clear")
+                mensaje_mail_no_registrado()
+                return 
         elif opt == 2:
             for objeto in datos.registro:
                 if isinstance(objeto, profesor.Profesor) and objeto.email == mail_ingresado:
@@ -38,21 +39,21 @@ def prompt_datos_validar_credenciales(opt):
                     else:
                         os.system("clear")
                         mensaje_contrasenia_invalida()
-                else:
-                    os.system("clear")
-                    mensaje_mail_no_registrado()
+                        break
+            else:
+                os.system("clear")
+                mensaje_mail_no_registrado()
+                return False
         if objeto_activo:
             return objeto_activo
-        else:
-            return False
 
 
 def alta_profesor():
     while True:
         codigo_admin = "admin123"
-        print("-------------------------------------------------------------------------")
-        print("|Ingrese el código de administrador para darse de alta en el sistema ...|")
-        print("-------------------------------------------------------------------------\n")
+        print("-------------------------------------------------------------------------------------------")
+        print("|Ingrese el código de administrador para darse de alta en el sistema o ENTER para salir...|")
+        print("-------------------------------------------------------------------------------------------\n")
         codigo_admin_ingresado = input("Ingrese el código de administrador: ")
         if codigo_admin_ingresado == codigo_admin:
             os.system("clear")
@@ -75,14 +76,14 @@ def alta_profesor():
             print(F"email: {email_nuevo_profesor}")
             print(F"contraseña: {password_nuevo_profesor}\n")
             print("registro exitoso, volviendo al menu principal...\n")
-            break
+            return True
         else:
             os.system("clear")
             print("--------------------------------------------------------------------")
             print("|código de administrador incorrecto, volviendo al menú principal...|")
             print("--------------------------------------------------------------------\n")
             break
-    return True
+    
 
 def prompt_matricular(objeto_activo):
     opt = ""
@@ -120,8 +121,8 @@ def prompt_matricular(objeto_activo):
 def menu_listado_cursos():
     index = 0
     print("---------------------")
-    for curso in curso.listado_cursos:
-        print(f"{index + 1}- {curso._nombre}")
+    for cursoItem in curso.listado_cursos:
+        print(f"{index + 1}- {cursoItem._nombre}")
         index += 1
     print("---------------------\n")
 
@@ -166,7 +167,9 @@ def imprimir_cursos_inscripto(objeto_activo):
                         print(f"Nombre del curso: {curso_seleccionado._nombre}")
                         print("Lista de archivos:")
                         for archivo in curso_seleccionado._archivos:
-                            print(f" - {archivo._nombre} ({archivo._formato})") 
+                            print(f" - {archivo._nombre} ({archivo._formato}) - fecha: {archivo._fecha}\n")
+                        #for archivo in curso_seleccionado._archivos:
+                        #    print(f" - {archivo._nombre} ({archivo._formato}) - fecha: {archivo._fecha}") 
                         
                 break
             else:
@@ -229,6 +232,39 @@ def menu_principal():
     print("|3 - Ver cursos                        |")
     print("|4 - Salir                             |")
     print("----------------------------------------\n")
+    
+def validar_opcion_menu_principal():
+    opt = input("Ingrese la opción del menú: ")
+    if opt.isdigit():
+        opt = int(opt)
+        if 1 <= opt <= 4:
+            return opt
+        else:
+            mensaje_opcion_numero_invalido()
+    else:
+        mensaje_opcion_debe_ser_numerica()
+        
+def validar_opcion_menu_alumno():
+    opt = input("Ingrese la opción del menú: ")
+    if opt.isdigit():
+        opt = int(opt)
+        if 1 <= opt <= 4:
+            return opt
+        else:
+            mensaje_opcion_numero_invalido()
+    else:
+        mensaje_opcion_debe_ser_numerica()      
+
+def validar_opcion_menu_profesor():
+    opt = input("Ingrese la opción del menú: ")
+    if opt.isdigit():
+        opt = int(opt)
+        if 1 <= opt<= 3:
+            return opt
+        else:
+            mensaje_opcion_numero_invalido()
+    else:
+        mensaje_opcion_debe_ser_numerica()                       
 
 
 def mensaje_bienvenida():
@@ -246,8 +282,8 @@ def mensaje_acceso_concedido():
 def menu_alumno():
     print("----------------------------------------")
     print("|1 - Matricularse a un curso           |")
-    print("|1 - Desmatricularse a un curso        |")
-    print("|2 - Ver curso                         |")
+    print("|2 - Desmatricularse a un curso        |")
+    print("|4 - Ver curso                         |")
     print("|3 - Volver al menú principal          |")
     print("----------------------------------------\n")
 

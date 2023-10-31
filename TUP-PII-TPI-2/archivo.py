@@ -31,5 +31,5 @@ class Archivo():
         self._formato = formato
         
     def __str__(self) -> str:
-        pass
+        return f"{self.nombre} - ({self.formato}) - fecha: {self.fecha}"
     
