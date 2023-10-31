@@ -116,8 +116,8 @@ def prompt_matricular(objeto_activo):
         opt = input("Ingrese el número de curso al que desea matricularse: ")
         if opt.isnumeric():
             opt = int(opt)
-            if 1 <= opt <= len(curso.listado_cursos):
-                curso_a_matricularse = curso.listado_cursos[opt - 1]
+            if 1 <= opt <= len(datos.listado_cursos):
+                curso_a_matricularse = datos.listado_cursos[opt - 1]
                 if curso_a_matricularse in objeto_activo._mis_cursos:
                     os.system("clear")
                     mensaje_error_matriculacion()
@@ -126,11 +126,11 @@ def prompt_matricular(objeto_activo):
                     matricula_ingresada = input("Ingrese la clave de matriculación: ")
                     if (
                         matricula_ingresada
-                        == curso.listado_cursos[opt - 1]._contrasenia_matriculacion
+                        == datos.listado_cursos[opt - 1]._contrasenia_matriculacion
                     ):
                         objeto_activo.matricular_en_curso(
                             objeto_activo, curso_a_matricularse
-                        )  # ????
+                        )  
                         opt = "break"
 
                         os.system("clear")
@@ -147,7 +147,7 @@ def prompt_matricular(objeto_activo):
                             mensaje_carrera_unregistered()
 
                     else:
-                        mensaje_contrasenia_invalida()  # matricula inválida
+                        mensaje_contrasenia_invalida()  
                 return
             else:
                 mensaje_opcion_numero_invalido()
@@ -163,8 +163,8 @@ def prompt_desmatricular(objeto_activo):
         opt = input("Ingrese el número del curso al que desea desmatricularse: ")
         if opt.isnumeric():
             opt = int(opt)
-            if 1 <= opt <= len(curso.listado_cursos):
-                curso_a_desmatricularse = curso.listado_cursos[opt - 1]
+            if 1 <= opt <= len(datos.listado_cursos):
+                curso_a_desmatricularse = datos.listado_cursos[opt - 1]
                 if curso_a_desmatricularse in objeto_activo._mis_cursos:
                     objeto_activo.desmatricular_curso(
                         objeto_activo, curso_a_desmatricularse
@@ -186,7 +186,7 @@ def prompt_desmatricular(objeto_activo):
 def menu_listado_cursos():
     index = 0
     print("---------------------")
-    for cursoItem in curso.listado_cursos:
+    for cursoItem in datos.listado_cursos:
         print(f"{index + 1}- {cursoItem._nombre}")
         index += 1
     print("---------------------\n")
