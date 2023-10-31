@@ -1,9 +1,9 @@
 from datetime import date
 
 class Archivo():
-    def __init__(self, nombre: str, fecha: date, formato: str) -> None:
+    def __init__(self, nombre: str, formato: str) -> None:
         self._nombre = nombre
-        self._fecha = fecha
+        self._fecha = date.today()
         self._formato = formato
         
     @property
