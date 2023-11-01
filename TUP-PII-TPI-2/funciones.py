@@ -22,16 +22,16 @@ def prompt_datos_validar_credenciales(opt):
                             mail_ingresado, contrasenia_ingresada
                         )
                         if acceso_validado:
-                            os.system("clear")
+                            os.system("cls")
                             objeto_activo = objeto  # login exitoso!
                             mensaje_acceso_concedido(objeto_activo)
                         break
                     else:
-                        os.system("clear")
+                        os.system("cls")
                         mensaje_contrasenia_invalida()
                         return  # vuelta al menu principal ante mail correcto pero contraseña inválida
             else:
-                os.system("clear")
+                os.system("cls")
                 mensaje_mail_no_registrado()
                 return  # vuelta al menu principal ante mail no registrado
 
@@ -45,17 +45,17 @@ def prompt_datos_validar_credenciales(opt):
                         acceso_validado = objeto.validar_credenciales(
                             mail_ingresado, contrasenia_ingresada
                         )
-                        os.system("clear")
+                        os.system("cls")
                         objeto_activo = objeto
                         mensaje_acceso_concedido(objeto_activo)
 
                         break
                     else:
-                        os.system("clear")
+                        os.system("cls")
                         mensaje_contrasenia_invalida()
                         break
             else:
-                os.system("clear")
+                os.system("cls")
                 mensaje_mail_no_registrado()
                 return False  # False permite entrar a la funcion para registro de profesor en la app
         if objeto_activo:
@@ -75,7 +75,7 @@ def alta_profesor():
     )
     codigo_admin_ingresado = input("Ingrese el código de administrador: ")
     if codigo_admin_ingresado == codigo_admin:
-        os.system("clear")
+        os.system("cls")
         nombre_nuevo_profesor = input("Ingrese su nombre: ")
         apellido_nuevo_profesor = input("Ingrese su apellido: ")
         email_nuevo_profesor = input("Ingrese su email: ")
@@ -92,7 +92,7 @@ def alta_profesor():
             password_nuevo_profesor,
         )
         datos.registro.append(objeto_nuevo_profesor)
-        os.system("clear")
+        os.system("cls")
         print("se ha dado de alta un nuevo profesor con estos datos:\n")
         print(f"nombre: {nombre_nuevo_profesor}")
         print(f"apellido: {apellido_nuevo_profesor}")
@@ -103,7 +103,7 @@ def alta_profesor():
         print("registro exitoso, volviendo al menu principal...\n")
         return True
     else:
-        os.system("clear")
+        os.system("cls")
         print("--------------------------------------------------------------------")
         print("|código de administrador incorrecto, volviendo al menú principal...|")
         print("--------------------------------------------------------------------\n")
@@ -113,7 +113,7 @@ def alta_profesor():
 def prompt_matricular(objeto_activo):
     while True:
         if not datos.listado_cursos:
-            os.system("clear")
+            os.system("cls")
             print("No existen cursos cargados todavía!")
             break
         else:
@@ -131,14 +131,14 @@ def prompt_matricular(objeto_activo):
             if 1 <= opt <= len(datos.listado_cursos):
                 curso_a_matricularse = datos.listado_cursos[opt - 1]
                 if curso_a_matricularse in objeto_activo.mis_cursos: # validar que el alumno no tenga el curso en su lista
-                    os.system("clear")
+                    os.system("cls")
                     mensaje_error_matriculacion()
                     return
                 else:
                     matricula_ingresada = input("Ingrese la clave de matriculación: ")
                     if matricula_ingresada == datos.listado_cursos[opt - 1].contrasenia_matriculacion:
                         objeto_activo.matricular_en_curso(objeto_activo, curso_a_matricularse)
-                        os.system("clear")
+                        os.system("cls")
                         alumno_encontrado = False
                         for carrera in datos.listado_carreras:
                             for alumno in carrera.alumnos:
@@ -164,11 +164,11 @@ def prompt_matricular(objeto_activo):
 def prompt_desmatricular(objeto_activo):
     while True:
         if not datos.listado_cursos:
-            os.system("clear")
+            os.system("cls")
             print("No existen cursos cargados todavía en el sistema!") 
             break
         elif not objeto_activo.mis_cursos:
-            os.system("clear")
+            os.system("cls")
             print("Usted no está matriculado en ningún curso todavía...")
             break
         else:
@@ -187,7 +187,7 @@ def prompt_desmatricular(objeto_activo):
                         objeto_activo.desmatricular_curso(
                                 objeto_activo, curso_a_desmatricularse
                             )
-                        os.system("clear")
+                        os.system("cls")
                         print("Se ha desmatriculado con exito")
                         break
                     else:
@@ -257,13 +257,13 @@ def imprimir_cursos_inscripto(objeto_activo):
                         )
                         nuevo_objeto_archivo = Archivo(nombre_archivo, formato_archivo)
                         curso_seleccionado.nuevo_archivo(nuevo_objeto_archivo)
-                        os.system("clear")
+                        os.system("cls")
                         print("---------------------------------")
                         print(" Archivo agregado exitosamente!!!  ")
                         print("---------------------------------\n")
                         break
                     else:
-                        os.system("clear")
+                        os.system("cls")
                         break
             else:
                 mensaje_opcion_numero_invalido()
@@ -331,7 +331,7 @@ def ordenar_cursos(listado):
 
 def mostrar_cursos_ordenados(listado_ordenado):
     if not listado_ordenado:
-        os.system("clear")
+        os.system("cls")
         print("-------------------------------------------")
         print("| No hay cursos cargados en el sistema... |")
         print("-------------------------------------------\n")
@@ -433,21 +433,21 @@ def mensaje_matricula_exitosa(curso):
 
 
 def mensaje_opcion_numero_invalido():
-    os.system("clear")
+    os.system("cls")
     print("----------------------------------------")
     print("| No ha ingresado una opción válida... |")
     print("----------------------------------------\n")
 
 
 def mensaje_opcion_debe_ser_numerica():
-    os.system("clear")
+    os.system("cls")
     print("----------------------------------")
     print("| Ingrese una opción numérica... |")
     print("----------------------------------\n")
 
 
 def mensaje_mail_no_registrado():
-    os.system("clear")
+    os.system("cls")
     print("------------------------------------------------------")
     print("| Mail no registrado, debe darse de alta en alumnado |")
     print("------------------------------------------------------\n")
@@ -472,7 +472,7 @@ def mensaje_curso_unregistered():
 
 
 def mensaje_fin_programa():
-    os.system("clear")
+    os.system("cls")
     print("--------------------")
     print("| FIN DEL PROGRAMA |")
     print("--------------------\n")
