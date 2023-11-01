@@ -11,7 +11,7 @@ import funciones
 
 # el admin code es: admin123
 
-# el programa inicia sin cursos en el sistema, solo con la carrera " Tecnicatura Universitaria en programación" que tiene 1 alumno inscripto
+# el programa inicia sin cursos en el sistema, solo con la carrera " Tecnicatura Universitaria en programación" que tiene 1 alumno inscripto(test Estudiante)
 
 funciones.mensaje_bienvenida()
 
@@ -38,7 +38,7 @@ while True:
         else:
             while True:
                 opt_profesor = funciones.menu_profesor()
-                os.system("clear")
+                os.system("cls")
                 if opt_profesor == 1:
                     nuevo_curso = funciones.crear_nuevo_curso(objeto_activo)
                 elif opt_profesor == 2:
