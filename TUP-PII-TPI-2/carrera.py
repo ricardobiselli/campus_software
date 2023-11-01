@@ -1,25 +1,25 @@
 class Carrera:
     def __init__(self, nombre: str, cant_anios: int) -> None:
-        self._nombre = nombre
-        self._cant_anios = cant_anios
-        self._cursos = []
-        self._alumnos = []
+        self.__nombre = nombre
+        self.__cant_anios = cant_anios
+        self.__cursos = []
+        self.__alumnos = []
 
     @property
     def nombre(self):
-        return self._nombre
+        return self.__nombre
 
     @nombre.setter
     def nombre(self, nombre):
-        self._nombre = nombre
+        self.__nombre = nombre
 
     @property
     def cant_anios(self):
-        return self._cant_anios
+        return self.__cant_anios
 
     @cant_anios.setter
     def cant_anios(self, cant_anios):
-        self._cant_anios = cant_anios
+        self.__cant_anios = cant_anios
 
     def __str__(self):
         pass
@@ -29,14 +29,14 @@ class Carrera:
 
     @property
     def cursos(self):
-        return self._cursos
+        return self.__cursos
 
     def add_curso(self, curso):
-        self._cursos.append(curso)
+        self.__cursos.append(curso)
 
     @property
     def alumnos(self):
-        return self._alumnos
+        return self.__alumnos
 
     def add_alumno(self, alumno):
-        self._alumnos.append(alumno)
+        self.__alumnos.append(alumno)

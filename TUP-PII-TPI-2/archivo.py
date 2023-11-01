@@ -2,33 +2,33 @@ from datetime import date
 
 class Archivo():
     def __init__(self, nombre: str, formato: str) -> None:
-        self._nombre = nombre
-        self._fecha = date.today()
-        self._formato = formato
+        self.__nombre = nombre
+        self.__fecha = date.today()
+        self.__formato = formato
         
     @property
     def nombre(self):
-        return self._nombre
+        return self.__nombre
     
     @nombre.setter
     def nombre(self, nombre):
-        self._nombre = nombre
+        self.__nombre = nombre
         
     @property
     def fecha(self):
-        return self._fecha
+        return self.__fecha
     
     @fecha.setter
     def fecha(self, fecha):
-        self._fecha = fecha
+        self.__fecha = fecha
         
     @property
     def formato(self):
-        return self._formato
+        return self.__formato
     
     @formato.setter
     def formato(self, formato):
-        self._formato = formato
+        self.__formato = formato
         
     def __str__(self) -> str:
         return f"{self.nombre} - ({self.formato}) - fecha: {self.fecha}"

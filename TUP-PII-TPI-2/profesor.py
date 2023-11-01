@@ -29,8 +29,8 @@ class Profesor(Usuario):
 
     def dictar_curso(self, objeto_activo, nuevo_objeto_curso, carrera):
         # agregar curso a la lista de cursos del profesor
-        objeto_activo._mis_cursos.append(nuevo_objeto_curso)
+        objeto_activo.mis_cursos.append(nuevo_objeto_curso)
         # agregar curso a la lista general de cursos
         datos.listado_cursos.append(nuevo_objeto_curso)
         # agregar curso a la carrera
-        carrera._cursos.append(nuevo_objeto_curso)
+        carrera.cursos.append(nuevo_objeto_curso)

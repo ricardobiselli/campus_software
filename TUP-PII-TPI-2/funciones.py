@@ -83,7 +83,7 @@ def alta_profesor():
         titulo_nuevo_profesor = input("Ingrese su título: ")
         anio_nuevo_profesor = input("Ingrese año de egreso: ")
 
-        objeto_nuevo_profesor = profesor.Profesor(
+        objeto_nuevo_profesor = profesor.Profesor( # instanciar nuevo objeto clase Profesor
             titulo_nuevo_profesor,
             anio_nuevo_profesor,
             nombre_nuevo_profesor,
@@ -116,106 +116,130 @@ def prompt_matricular(objeto_activo):
             os.system("clear")
             print("No existen cursos cargados todavía!")
             break
+        else:
+            sorted_cursos = sorted(datos.listado_cursos, key=lambda curso: curso.codigo) # mostrar cursos ordenados por código
+
+            index = 0
+            print("-------------------------------------------------")
+            for cursoItem in sorted_cursos:
+                print(f"{index + 1}- {cursoItem.nombre} - Código: {cursoItem.codigo}")
+                index += 1
+            print("-------------------------------------------------\n")
         opt = input("Ingrese el número de curso al que desea matricularse: ")
-        if opt.isnumeric():
+        if opt.isdigit():
             opt = int(opt)
             if 1 <= opt <= len(datos.listado_cursos):
                 curso_a_matricularse = datos.listado_cursos[opt - 1]
-                if curso_a_matricularse in objeto_activo._mis_cursos:
+                if curso_a_matricularse in objeto_activo.mis_cursos:
                     os.system("clear")
                     mensaje_error_matriculacion()
-                    menu_listado_cursos()
+                    return
                 else:
                     matricula_ingresada = input("Ingrese la clave de matriculación: ")
-                    if matricula_ingresada == datos.listado_cursos[opt - 1]._contrasenia_matriculacion:
+                    if matricula_ingresada == datos.listado_cursos[opt - 1].contrasenia_matriculacion:
                         objeto_activo.matricular_en_curso(objeto_activo, curso_a_matricularse)
                         os.system("clear")
                         alumno_encontrado = False
                         for carrera in datos.listado_carreras:
                             for alumno in carrera.alumnos:
                                 if alumno.nombre == objeto_activo.nombre:
-                                    alumno_encontrado = True
+                                    alumno_encontrado = True # validar que alumno pertenece a la carrera
                                     break
                         if alumno_encontrado:
                             mensaje_matricula_exitosa(curso_a_matricularse)
                         else:
                             mensaje_carrera_unregistered()
+                            return
                     else:
                         mensaje_contrasenia_invalida()
+                        return
                 break
             else:
                 mensaje_opcion_numero_invalido()
-                menu_listado_cursos()
+                return
         else:
             mensaje_opcion_debe_ser_numerica()
-            menu_listado_cursos()
-
-
+            return
 
 def prompt_desmatricular(objeto_activo):
-    opt = ""
-    while opt != "break":
-        opt = input("Ingrese el número del curso al que desea desmatricularse: ")
-        if opt.isnumeric():
-            opt = int(opt)
-            if 1 <= opt <= len(datos.listado_cursos):
-                curso_a_desmatricularse = datos.listado_cursos[opt - 1]
-                if curso_a_desmatricularse in objeto_activo._mis_cursos:
-                    objeto_activo.desmatricular_curso(
-                        objeto_activo, curso_a_desmatricularse
-                    )
-                    opt = "break"
-
-                    os.system("clear")
-                    print("Se ha desmatriculado con exito")
-                else:
-                    mensaje_curso_unregistered()
-            else:
-                mensaje_opcion_numero_invalido()
-                menu_listado_cursos()
+    while True:
+        if not datos.listado_cursos:
+            os.system("clear")
+            print("No existen cursos cargados todavía en el sistema!") 
+            break
+        elif not objeto_activo.mis_cursos:
+            os.system("clear")
+            print("Usted no está matriculado en ningún curso todavía...")
+            break
         else:
-            mensaje_opcion_debe_ser_numerica()
-            menu_listado_cursos()
-
-
-def menu_listado_cursos():
-    index = 0
-    print("--------------------------------------")
-    for cursoItem in datos.listado_cursos:
-        print(f"{index + 1}- {cursoItem._nombre}")
-        index += 1
-    if datos.listado_cursos == []:  
-        print("Todavía no hay cursos disponibles")
-    print("--------------------------------------\n")
-
-
+            index = 0
+            print("------------------------------------")
+            for cursoItem in datos.listado_cursos:
+                print(f"{index + 1}- {cursoItem.nombre}")
+                index += 1
+            print("------------------------------------\n")
+            opt = input("Ingrese el número del curso al que desea desmatricularse: ")
+            if opt.isdigit():
+                opt = int(opt)
+                if 1 <= opt <= len(datos.listado_cursos):
+                    curso_a_desmatricularse = datos.listado_cursos[opt - 1]
+                    if curso_a_desmatricularse in objeto_activo.mis_cursos:
+                        objeto_activo.desmatricular_curso(
+                                objeto_activo, curso_a_desmatricularse
+                            )
+                        os.system("clear")
+                        print("Se ha desmatriculado con exito")
+                        break
+                    else:
+                        mensaje_curso_unregistered()
+                        return
+                else:
+                    mensaje_opcion_numero_invalido()
+                    return
+            else:
+                mensaje_opcion_debe_ser_numerica()
+                return
+        
 def imprimir_cursos_inscripto(objeto_activo):
-    while objeto_activo._mis_cursos:
+    while objeto_activo.mis_cursos:
         print("Estos son todos tus cursos:\n")
         print("-------------------")
 
         indice = 0
         for curso in objeto_activo.mis_cursos:
             indice += 1
-            print(f"{indice} - {curso._nombre}")
+            print(f"{indice} - {curso.nombre}")
+            if indice >= len(objeto_activo.mis_cursos):
+                break
         print("-------------------\n")
 
         curso_seleccionado = input(
             "Ingrese la opción correspondiente a uno de los cursos: "
         )
-        if curso_seleccionado.isnumeric():
-            indice = int(curso_seleccionado) - 1
-            if 0 <= indice < len(objeto_activo.mis_cursos):  # ACA HAY UN ERROR
-                curso_seleccionado = objeto_activo.mis_cursos[indice]
-                if isinstance(objeto_activo, profesor.Profesor):
+        
+        if curso_seleccionado.isdigit():
+            curso_seleccionado = int(curso_seleccionado)  
+            indice_b = curso_seleccionado - 1
+            if 0 <= indice_b < len(objeto_activo.mis_cursos): 
+                curso_seleccionado = objeto_activo.mis_cursos[indice_b]
+                if isinstance(objeto_activo, estudiante.Estudiante):
                     print("-------------------------------------------")
-                    print(
-                        f"Nombre: {curso_seleccionado._nombre}\n"
-                        f"contraseña matriculación: {curso_seleccionado._contrasenia_matriculacion}\n"
-                        f"código de curso: {curso_seleccionado._codigo}\n"
-                        f"cantidad de archivos: {len(curso_seleccionado._archivos)}\n"
-                    )
+                    print(f"Nombre: {curso_seleccionado.nombre}\n")
+                    print("Archivos del curso ordenados por fecha:")
+
+                    sorted_archivos = sorted(curso_seleccionado.archivos, key=lambda archivo: archivo.fecha)
+                    for archivo in sorted_archivos:
+                        print(
+                            f" - {archivo.nombre} ({archivo.formato}) - fecha: {archivo.fecha}\n"
+                        )
                     print("-------------------------------------------")
+                    return
+                elif isinstance(objeto_activo, profesor.Profesor):
+                    print(f"Nombre del curso: {curso_seleccionado.nombre}\n")
+                    print(f"Contraseña del curso: {curso_seleccionado.contrasenia_matriculacion}\n")
+                    print(f"Código del curso: {curso_seleccionado.codigo}\n")
+                    print(f"cantidad de archivos adjuntos: {len(curso_seleccionado.archivos)}\n")
+                    
                     respuesta_agregar_curso = input(
                         "Desea agregar un archivo adjunto? si/no: "
                     )
@@ -226,7 +250,7 @@ def imprimir_cursos_inscripto(objeto_activo):
                         )
                     if respuesta_agregar_curso == "si":
                         nombre_archivo = input(
-                            "Ingrese el nombre del archivo adjunto: "
+                            "Ingrese the nombre del archivo adjunto: "
                         )
                         formato_archivo = input(
                             "Ingrese el formato del archivo adjunto, por ejemplo pdf: "
@@ -234,18 +258,13 @@ def imprimir_cursos_inscripto(objeto_activo):
                         nuevo_objeto_archivo = Archivo(nombre_archivo, formato_archivo)
                         curso_seleccionado.nuevo_archivo(nuevo_objeto_archivo)
                         os.system("clear")
-                        print("-----------------------------------------")
-                        print("| Archivo agregado con exitosamente!!!  |")
-                        print("-----------------------------------------\n")
-                        print(f"Nombre del curso: {curso_seleccionado._nombre}")
-                        print("Lista de archivos:")
-                        for archivo in curso_seleccionado._archivos:
-                            print(
-                                f" - {archivo._nombre} ({archivo._formato}) - fecha: {archivo._fecha}\n"
-                            )
+                        print("---------------------------------")
+                        print(" Archivo agregado exitosamente!!!  ")
+                        print("---------------------------------\n")
+                        break
                     else:
                         os.system("clear")
-                break
+                        break
             else:
                 mensaje_opcion_numero_invalido()
         else:
@@ -254,6 +273,7 @@ def imprimir_cursos_inscripto(objeto_activo):
         print("------------------------------")
         print("| No posee cursos activos... |")
         print("------------------------------\n")
+
 
 
 def crear_nuevo_curso(objeto_activo):
@@ -273,16 +293,16 @@ def crear_nuevo_curso(objeto_activo):
         else:
             print("Por favor, ingrese SOLO NÚMEROS!")
     print("---------------------------------------------------------------")
-    print(f"ha seleccionado {carrera_elegida._nombre}")
+    print(f"ha seleccionado {carrera_elegida.nombre}")
     print("---------------------------------------------------------------")
     nombre_nuevo_curso = input("Ingrese el nombre del curso que desea crear: ")
-    for curso_existente in carrera_elegida._cursos:
-        if nombre_nuevo_curso == curso_existente._nombre:
+    for curso_existente in carrera_elegida.cursos:
+        if nombre_nuevo_curso == curso_existente.nombre:
             print(
                 "----------------------------------------------------------------------------------------------------------------------------"
             )
             print(
-                f"| Este curso ya está disponible en la carrera {carrera_elegida._nombre}, no puede agregarlo nuevamente|"
+                f"| Este curso ya está disponible en la carrera {carrera_elegida.nombre}, no puede agregarlo nuevamente|"
             )
             print(
                 "----------------------------------------------------------------------------------------------------------------------------\n"
@@ -296,7 +316,7 @@ def crear_nuevo_curso(objeto_activo):
         "--------------------------------------------------------------------------------------------------------"
     )
     print(
-        f" Ha agregado exitosamente el curso '{nombre_nuevo_curso}', clave mat: '{contrasenia_nuevo_curso}', código: '{nuevo_objeto_curso._codigo}'"
+       f" Ha agregado exitosamente el curso '{nombre_nuevo_curso}', clave mat: '{contrasenia_nuevo_curso}', código: '{nuevo_objeto_curso.codigo}'"
     )
     print(
         "--------------------------------------------------------------------------------------------------------\n"
@@ -305,17 +325,24 @@ def crear_nuevo_curso(objeto_activo):
 
 
 def ordenar_cursos(listado):
-    listado_cursos_ordenados = sorted(listado, key=lambda x: x._nombre)
+    listado_cursos_ordenados = sorted(listado, key=lambda x: x.nombre)
     return listado_cursos_ordenados
 
 
 def mostrar_cursos_ordenados(listado_ordenado):
-    for carrera in datos.listado_carreras:
-        for curso in listado_ordenado:
-            for cursocarrera in carrera._cursos:
-                if cursocarrera._nombre == curso._nombre:
-                    print(f"Materia: {curso._nombre} Carrera: {carrera._nombre}")
-    print("------------------------------\n")
+    if not listado_ordenado:
+        os.system("clear")
+        print("-------------------------------------------")
+        print("| No hay cursos cargados en el sistema... |")
+        print("-------------------------------------------\n")
+    else:
+        for carrera in datos.listado_carreras:
+            for curso in listado_ordenado:
+                for cursocarrera in carrera.cursos:
+                    if cursocarrera.nombre == curso.nombre:
+                        print(f"Materia: {curso.nombre} Carrera: {carrera.nombre}")
+        print("------------------------------\n")
+
 
 
 def menu_principal():
@@ -351,7 +378,7 @@ def mensaje_bienvenida():
 
 def mensaje_acceso_concedido(objeto_activo):
     print("------------------------------------------------")
-    print(f"Acceso concedido! Bienvenido/a: {objeto_activo._nombre}")
+    print(f"Acceso concedido! Bienvenido/a: {objeto_activo.nombre}")
     print("------------------------------------------------\n")
 
 
@@ -375,21 +402,22 @@ def menu_alumno():
 
 
 def menu_profesor():
-    print("----------------------------------------")
-    print("|1 - Dictar curso                      |")
-    print("|2 - Ver curso                         |")
-    print("|3 - Volver al menú principal          |")
-    print("----------------------------------------\n")
+    while True:
+        print("----------------------------------------")
+        print("|1 - Dictar curso                      |")
+        print("|2 - Ver curso                         |")
+        print("|3 - Volver al menú principal          |")
+        print("----------------------------------------\n")
 
-    opt = input("Ingrese la opción del menú: ")
-    if opt.isdigit():
-        opt = int(opt)
-        if 1 <= opt <= 3:
-            return opt
+        opt = input("Ingrese la opción del menú: ")
+        if opt.isdigit():
+            opt = int(opt)
+            if 1 <= opt <= 3:
+                return opt
+            else:
+                mensaje_opcion_numero_invalido()
         else:
-            mensaje_opcion_numero_invalido()
-    else:
-        mensaje_opcion_debe_ser_numerica()
+            mensaje_opcion_debe_ser_numerica()
 
 
 def mensaje_error_matriculacion():
@@ -400,7 +428,7 @@ def mensaje_error_matriculacion():
 
 def mensaje_matricula_exitosa(curso):
     print("-------------------------------------------------------")
-    print(f" Se ha matriculado exitosamente en: {curso._nombre}   ")
+    print(f" Se ha matriculado exitosamente en: {curso.nombre}   ")
     print("-------------------------------------------------------\n")
 
 

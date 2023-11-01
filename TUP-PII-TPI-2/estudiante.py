@@ -14,6 +14,7 @@ class Estudiante(Usuario):
         super().__init__(nombre, apellido, email, contrasenia)
         self.__legajo = legajo
         self.__anio_inscripcion_carrera = anio_inscripcion_carrera
+        self.__mis_cursos = []
 
     @property
     def legajo(self):
@@ -31,19 +32,19 @@ class Estudiante(Usuario):
     def anio_inscripcion_carrera(self, anio_inscripcion_carrera):
         self.__anio_inscripcion_carrera = anio_inscripcion_carrera
 
-    @property
+    """@property
     def mis_cursos(self):
-        return self._mis_cursos
+        return self.mis_cursos
 
     @mis_cursos.setter
     def mis_cursos(self, cursos):
-        self._mis_cursos = cursos
+        self.mis_cursos = cursos"""
 
     def __str__(self):
         return f"{self.nombre.title()} {self.apellido.title()}"
 
     def matricular_en_curso(self, objeto_activo, curso_a_matricularse):
-        objeto_activo._mis_cursos.append(curso_a_matricularse)
+        objeto_activo.mis_cursos.append(curso_a_matricularse)
 
     def desmatricular_curso(self, objeto_activo, curso_a_desmatricularse):
-        objeto_activo._mis_cursos.remove(curso_a_desmatricularse)
+        objeto_activo.mis_cursos.remove(curso_a_desmatricularse)

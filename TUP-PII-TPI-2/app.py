@@ -2,10 +2,16 @@ import os
 import datos
 import funciones
 
-# datos útiles para pruebas rápidas
-# usuario test Estudiante, mail 1 contraseña 2
+# datos útiles para pruebas rápidas:
+
+# usuario nombre: test Estudiante, mail 1 contraseña 2
+# inscripto en carrera: "Tecnicatura Universitaria en programación"
+
 # usuario test Profesor, mail 2 contraseña 3
-# admin code: admin123
+
+# el admin code es: admin123
+
+# el programa inicia sin cursos en el sistema, solo con la carrera " Tecnicatura Universitaria en programación" que tiene 1 alumno inscripto
 
 funciones.mensaje_bienvenida()
 
@@ -18,10 +24,8 @@ while True:
                 opt_alumno = funciones.menu_alumno()
                 os.system("clear")
                 if opt_alumno == 1:
-                    funciones.menu_listado_cursos()
                     funciones.prompt_matricular(objeto_activo)
                 elif opt_alumno == 2:
-                    funciones.menu_listado_cursos()
                     funciones.prompt_desmatricular(objeto_activo)
                 elif opt_alumno == 3:
                     funciones.imprimir_cursos_inscripto(objeto_activo)
