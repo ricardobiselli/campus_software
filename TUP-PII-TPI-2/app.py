@@ -22,7 +22,7 @@ while True:
         if objeto_activo:
             while True:
                 opt_alumno = funciones.menu_alumno()
-                os.system("clear")
+                os.system("cls")
                 if opt_alumno == 1:
                     funciones.prompt_matricular(objeto_activo)
                 elif opt_alumno == 2:
