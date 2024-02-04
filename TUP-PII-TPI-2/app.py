@@ -1,53 +1,53 @@
 import os
-import datos
-import funciones
+import data
+import functions
 
-# datos útiles para pruebas rápidas:
+# Useful data for quick tests:
 
-# usuario nombre: test Estudiante, mail 1 contraseña 2
-# inscripto en carrera: "Tecnicatura Universitaria en programación"
+# User name: test Student, email 1 password 2
+# Enrolled in career: "Tecnicatura Universitaria en programación"
 
-# usuario test Profesor, mail 2 contraseña 3
+# User test Professor, email 2 password 3
 
-# el admin code es: admin123
+# Admin code is: admin123
 
-# el programa inicia sin cursos en el sistema, solo con la carrera " Tecnicatura Universitaria en programación" que tiene 1 alumno inscripto(test Estudiante)
+# The program starts without courses in the system, only with the career "Tecnicatura Universitaria en programación" that has 1 enrolled student (test Student)
 
-funciones.mensaje_bienvenida()
+functions.welcome_message()
 
 while True:
-    opt = funciones.menu_principal()
+    opt = functions.main_menu()
     if opt == 1:
-        objeto_activo = funciones.prompt_datos_validar_credenciales(opt)
-        if objeto_activo:
+        active_object = functions.prompt_data_validate_credentials(opt)
+        if active_object:
             while True:
-                opt_alumno = funciones.menu_alumno()
-                os.system("cls")
-                if opt_alumno == 1:
-                    funciones.prompt_matricular(objeto_activo)
-                elif opt_alumno == 2:
-                    funciones.prompt_desmatricular(objeto_activo)
-                elif opt_alumno == 3:
-                    funciones.imprimir_cursos_inscripto(objeto_activo)
-                elif opt_alumno == 4:
+                opt_student = functions.student_menu()
+                os.system("clear")
+                if opt_student == 1:
+                    functions.prompt_enroll(active_object)
+                elif opt_student == 2:
+                    functions.prompt_unenroll(active_object)
+                elif opt_student == 3:
+                    functions.print_enrolled_courses(active_object)
+                elif opt_student == 4:
                     break
     elif opt == 2:
-        objeto_activo = funciones.prompt_datos_validar_credenciales(opt)
-        if not objeto_activo:
-            alta_profesor = funciones.alta_profesor()
+        active_object = functions.prompt_data_validate_credentials(opt)
+        if not active_object:
+            register_professor = functions.register_professor()
         else:
             while True:
-                opt_profesor = funciones.menu_profesor()
-                os.system("cls")
-                if opt_profesor == 1:
-                    nuevo_curso = funciones.crear_nuevo_curso(objeto_activo)
-                elif opt_profesor == 2:
-                    funciones.imprimir_cursos_inscripto(objeto_activo)
-                elif opt_profesor == 3:
+                opt_professor = functions.professor_menu()
+                os.system("clear")
+                if opt_professor == 1:
+                    new_course = functions.create_new_course(active_object)
+                elif opt_professor == 2:
+                    functions.print_enrolled_courses(active_object)
+                elif opt_professor == 3:
                     break
     elif opt == 3:
-        cursos_ordenados = funciones.ordenar_cursos(datos.listado_cursos)
-        funciones.mostrar_cursos_ordenados(cursos_ordenados)
+        sorted_courses = functions.sort_courses(data.course_list)
+        functions.show_sorted_courses(sorted_courses)
     elif opt == 4:
-        funciones.mensaje_fin_programa()
+        functions.end_program_message()
         break
