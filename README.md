@@ -25,13 +25,13 @@ Campus Software is a simple command-line application for managing courses, stude
 
 Make sure you have Python installed on your system. The application uses Python 3.
 
-# Clone the repository
+## Clone the repository
 git clone https://github.com/ricardobiselli/campus_software.git
 
-# Navigate to the project directory
+#3 Navigate to the project directory
 cd campus_software
 
-# Run app.py file to start the program
+## Run app.py file to start the program
 python app.py
 
 
